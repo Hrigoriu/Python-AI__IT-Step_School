@@ -1,0 +1,43 @@
+[
+    {
+        "name": "\u041f\u0435\u0442\u0440\u043e \u041f\u0435\u0442\u0440\u043e\u0432",
+        "age": 30,
+        "job": "\u041c\u0430\u043a\u0414\u043e\u043d\u0430\u043b\u044c\u0434\u0441",
+        "skills": [
+            "Python",
+            "C++"
+        ]
+    },
+    {
+        "name": "\u041e\u043b\u044c\u0433\u0430 \u041e\u043b\u044c\u0433\u043e\u0432\u0430",
+        "age": 25,
+        "job": "Google Inc.",
+        "skills": [
+            "Python",
+            "HTML CSS",
+            "JavaScript"
+        ]
+    },
+    {
+        "name": "\u0421\u0435\u0440\u0433\u0456\u0439 \u0421\u0435\u0440\u0433\u0456\u0454\u0432",
+        "age": 17,
+        "job": "Meta Inc.",
+        "skills": [
+            "C++",
+            "C",
+            "C#",
+            ".Net",
+            "Kotlin",
+            "Java"
+        ]
+    },
+    {
+        "name": "\u0410\u043d\u0442\u043e\u043d \u0410\u043d\u0442\u043e\u043d\u043e\u0432",
+        "age": 45,
+        "job": "Ajax Systems",
+        "skills": [
+            "Django",
+            "React"
+        ]
+    }
+]
