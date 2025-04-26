@@ -16,7 +16,7 @@ class Kvadrat:
     def perimeter(self):
 #        perimeter = 4 * self.side_length
 #        print(f'Периметр квадрата зі стороною {self.side_length} дорівнює {perimeter}.')
-        return 4 * self.side_length
+        return self.side_length * 4
 
 my_kvadrat = Kvadrat(5)
 # my_kvadrat.area()
@@ -25,7 +25,7 @@ my_kvadrat = Kvadrat(5)
 print(f'Площа: {my_kvadrat.area()}')
 print(f'Периметр: {my_kvadrat.perimeter()}')
 
-#==========================================================
+#---------------------------------------------------------
 #variant№2
 class Square:
     def __init__ (self, a: int|float):
@@ -47,6 +47,7 @@ print(square_2.perimetr())
 Реалізуйте клас "Бібліотека" з методами для додавання та видалення книг, 
 пошуку книги за автором або назвою та відображення списку доступних книг.
 """
+#variant№1
 class Library:
     def __init__(self):
         self.books = []
@@ -89,7 +90,9 @@ print(lib.remove_book('Я, робот'))
 print('='*40)
 for book in lib.show_books():
     print(f'{book["title"]} (Автор: {book["author"]})')
-#=========================================================================
+
+#------------------------------------------------------------------------------
+#variant№2
 class Library:
     def __init__(self):
         self.books = {}  # автор: [книга, книга]

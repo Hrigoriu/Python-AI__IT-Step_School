@@ -31,6 +31,9 @@ class Human:    # назву класу пишемо через CamelClass аб�
     def get_height(self):   # getter - просто повертає значення атрибуту
         return self.height
 
+    # def set_height(self, new_height: int):   # setter - встановлює нове значення атрибуту
+    #     return self.height
+
 bob = Human('Bob', 27, 185)
 alice = Human('Alice', 18, 161)
 
