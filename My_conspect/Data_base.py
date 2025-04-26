@@ -465,8 +465,11 @@ def my_function():
 var = 1
 my_function()
 print(var)
-#Чи знаю я цю змінну? 1
-#1
+"""
+Видасть:
+Чи знаю я цю змінну? 1
+1
+"""
 
 def my_function():
    global var       # слово global робить змінну і всередині та зовні однаковою
@@ -475,14 +478,282 @@ def my_function():
 var = 1
 my_function()
 print(var)
-#Чи знаю я цю змінну? 2
-#2
+"""
+Видасть:
+Чи знаю я цю змінну? 2
+2
+"""
 ========================================================================
+
 def bmi(weight, height):
     return weight / height ** 2
 print(bmi(92.4, 1.82))  #27.895181741335588
 
+def lb_to_kg(lb):
+    return lb * 0.45359237  # 1 фунт = 0.45359237 кг
+print(lb_to_kg(1))
+
+def ft_and_inch_to_m(ft, inch):
+    return ft * 0.3048 + inch * 0.0254  # 1 фут = 0.3048 м, 1 дюйм = 2.54 см = 0.0254 м
+print(ft_and_inch_to_m(1, 1))
 
 
+def ft_and_inch_to_m(ft, inch=0.0):
+    return ft * 0.3048 + inch * 0.0254
+def lb_to_kg(lb):
+    return lb * 0.4535923
+def bmi(weight, height):
+    if height < 1.0 or height > 2.5 or weight < 20 or weight > 200:
+        return None
+    return weight / height ** 2
+print(bmi(weight=lb_to_kg(176), height=ft_and_inch_to_m(5, 7))) #27.56520982857069
+
+
+def is_a_triangle(a, b, c): #Чи можна побудувати трикутник?
+    if a + b <= c or b + c <= a or c + a <= b:
+        return False
+    return True
+print(is_a_triangle(1, 1, 1))   #True
+print(is_a_triangle(1, 1, 3))   #False
+
+def is_a_triangle(a, b, c):
+    return a + b > c and b + c > a and c + a > b
+print(is_a_triangle(1, 1, 1))
+print(is_a_triangle(1, 1, 3))
+
+
+def is_a_triangle(a, b, c): # теоремa Піфагора c2 = a2 + b2
+    return a + b > c and b + c > a and c + a > b
+def is_a_right_triangle(a, b, c):
+    if not is_a_triangle(a, b, c):
+        return False
+    if c > a and c > b:
+        return c ** 2 == a ** 2 + b ** 2
+    if a > b and a > c:
+        if a > b and a > c:
+            return a ** 2 == b ** 2 + c ** 2
+print(is_a_right_triangle(5, 3, 4))
+print(is_a_right_triangle(1, 3, 4))
+
+
+def is_a_triangle(a, b, c):
+    return a + b > c and b + c > a and c + a > b
+def heron(a, b, c):
+    p = (a + b + c) / 2
+    return (p * (p - a) * (p - b) * (p - c)) ** 0.5
+def area_of_triangle(a, b, c):
+    if not is_a_triangle(a, b, c):
+        return None
+    return heron(a, b, c)
+print(area_of_triangle(1., 1., 2. ** .5))
+
+    ##Рекурсія##
+#Рекурсія це техніка, в якій функція викликає сама себе.
+#числа Фібоначчі Fibi = Fibi-1 + Fibi-2
+def factorial_function(n):
+    if n < 0:
+        return None
+    if n < 2:
+        return 1
+    return n * factorial_function(n - 1)
+n = int(input('Введіть число: '))
+print(n, "->", factorial_function(n))
+
+
+# Рекурсивна реалізація функції факторіала.
+def factorial(n):
+    if n == 1:
+        return 1
+    else:
+        return n * factorial(n - 1)
+n = int(input('Введіть число: '))
+print(factorial(n))  # n = 5/ 5 * 4 * 3 * 2 * 1 = 120
+======================================================
+
+            #Список це тип змінної послідовності
+    empty_list = []
+list_1 = [1, 2, 4, 8]
+print(list_1)
+my_list = [1, 2, True, "a string", (3, 4), [5, 6], None]
+print(my_list)
+-------------------------------------------------------------------------
+            #Кортеж це тип незмінної послідовності
+    empty_tuple = ()
+my_tuple = (1, 2, True, "a string", (3, 4), [5, 6], None)
+print(my_tuple)
+
+my_tuple_1 = 1,
+print(type(my_tuple_1))     # виведе: <class 'tuple'>
+my_tuple_2 = 1              # Це не кортеж.
+print(type(my_tuple_2))     # виведе: <class 'int'>
+
+my_list = ["машина", "Форд", "квітка", "Тюльпан"]   #Список
+t = tuple(my_list)  #Перетворює список в кортеж
+print(t)            #('машина', 'Форд', 'квітка', 'Тюльпан')
+
+tuple_1 = (1, 2, 4, 8)
+tuple_2 = 1., .5, .25, .125
+print(tuple_1)
+print(tuple_2)
+"""
+Кортеж - Ви не зможете ні додати до нього елемент, ні вилучити 
+з нього будь-який елемент. Це означає, що додавання елемента 
+в кінець списку вимагатиме створення нового списку з нуля.
+"""
+
+my_tuple = (1, 10, 100)
+t1 = my_tuple + (1000, 10000)
+t2 = my_tuple * 3
+print(len(t2))  #9
+print(t1)       #(1, 10, 100, 1000, 10000)
+print(t2)       #(1, 10, 100, 1, 10, 100, 1, 10, 100)
+print(10 in my_tuple)       #True
+print(-10 not in my_tuple)  #True
+
+my_tuple = (1, 2.0, "string", [3, 4], (5,), True)
+print(my_tuple[3])  # виведе: [3, 4]
+
+---------------------------------------------------------------------------
+            #Словник це тип змінної впорядкованої послідовності
+            #Cловник — це набір пар ключ-значення
+dictionary = {'key1': 'item1', 'key2': 'item2', 'key3': 'item3'}
+
+my_dictionary = {
+    'key1': 'value1',
+    'key2': 'value2',
+    'key3': 'value3',
+}
+
+colors = (("green", "#008000"), ("blue", "#0000FF"))
+colors_dictionary = dict(colors)     #Перетворює кортеж в словник
+print(colors_dictionary)             #{'green': '#008000', 'blue': '#0000FF'}
+
+dictionary = {"cat": "chat", "dog": "chien", "horse": "cheval"}
+phone_numbers = {'boss': 5551234567, 'Suzy': 22657854310}
+empty_dictionary = {}
+print(dictionary)
+print(phone_numbers)
+print(empty_dictionary)
+
+dictionary = {"cat": "chat", "dog": "chien", "horse": "cheval"}
+words = ['cat', 'lion', 'horse']    #list
+for word in words:
+    if word in dictionary:
+        print(word, "->", dictionary[word])
+else:
+    print(word, "немає в словнику")
+"""
+cat -> chat
+lion немає в словнику
+horse -> cheval
+"""
+
+dictionary = {"cat": "chat", "dog": "chien", "horse": "cheval"}
+for key in dictionary.keys():
+    print(key, "->", dictionary[key])
+"""
+cat -> chat
+dog -> chien
+horse -> cheval
+"""
+
+dictionary = {"cat": "chat", "dog": "chien", "horse": "cheval"}
+for english, french in dictionary.items():
+    print(english, "->", french)
+"""
+cat -> chat
+dog -> chien
+horse -> cheval
+"""
+
+dictionary = {"cat": "chat", "dog": "chien", "horse": "cheval"}
+dictionary.update({"duck": "canard"})
+print(dictionary)   #{'cat': 'chat', 'dog': 'chien', 'horse': 'cheval', 'duck': 'canard'}
+
+dictionary = {"cat": "chat", "dog": "chien", "horse": "cheval"}
+del dictionary['dog']
+print(dictionary)   #{'cat': 'chat', 'horse': 'cheval'}
+
+ukr_eng_dictionary = {"квітка": "flower"}
+ukr_eng_dictionary.update({"ґрунт": "soil"})    #додає ключ:значення
+print(ukr_eng_dictionary)  # виведе: {'квітка': 'flower', 'ґрунт': 'soil'}
+ukr_eng_dictionary.popitem()    #Видаляє останній ключ:значення
+print(ukr_eng_dictionary)  # виведе: {'квітка': 'flower'}
+
+school_class = {}
+while True:
+    name = input("Введіть ім'я студента: ")
+    if name == '':
+        break
+    score = int(input("Введіть оцінку студента (0-10): "))
+    if score not in range(0, 11):
+        break
+    if name in school_class:
+        school_class[name] += (score,)
+    else:
+        school_class[name] = (score,)
+for name in sorted(school_class.keys()):
+    adding = 0
+    counter = 0
+    for score in school_class[name]:
+        adding += score
+        counter += 1
+    print(name, ":", adding / counter)
+
+
+    #Помилки - Винятки#
+#  У світі Python існує правило, яке звучить так:
+# "Краще просити вибачення, ніж просити дозволу".
+# "Краще виправити помилку, коли вона сталася, ніж намагатися її уникнути"
+
+try:
+  value = int(input('Введіть натуральне число: '))
+  print('Обернене число для', value, 'дорівнює', 1/value)
+except:
+  print('Я не знаю, що робити.')
+--------------------------------------------------------
+try:
+  value = int(input('Введіть натуральне число: '))
+  print('Обернене число для', value, 'дорівнює', 1/value)
+except ValueError:
+  print('Я не знаю, що робити.')
+except ZeroDivisionError:
+  print('Ділення на нуль у нашому Всесвіті не допускається.')
+#кількість except не обмежена
+------------------------------------------------------------
+try:
+  value = int(input('Введіть натуральне число: '))
+  print('Обернене число для', value, 'дорівнює', 1/value)
+except ValueError:
+  print('Я не знаю, що робити.')
+except ZeroDivisionError:
+  print('Ділення на нуль у нашому Всесвіті не допускається.')
+except:
+  print('Тут сталося щось дивне... Вибачте!')
+        #except за замовчуванням (тобто такий, що не має назви)
+        #           повинна бути останньою гілкою except. Завжди!
+        #           Cлід розміщувати в нижній гілці
+"""
+ZeroDivisionError
+/, //, and % на 0
+print(1/0)
+TypeError
+коли ви намагаєтесь застосувати дані, тип яких не відповідає поточному контексту
+AttributeError
+коли ви намагаєтеся активувати метод, який не існує в об'єкті, з яким ви взаємодієте
+SyntaxError
+коли елемент управління доходить до рядка коду, 
+в якому порушується граматика мови Python
+print("Привіт, Світ!)
+"""
+while True:
+    try:
+        number = int(input("Введіть ціле число: "))
+        print(5 / number)
+        break
+    except (ValueError, ZeroDivisionError):
+        print("Неправильне значення або порушено правило ділення на нуль.")
+    except:
+        print("Вибачте, щось пішло не так...")
 
 

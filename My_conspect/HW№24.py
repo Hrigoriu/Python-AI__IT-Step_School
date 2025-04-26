@@ -5,7 +5,6 @@ balance (баланс). Додайте методи deposit (внесення к
 змінюють баланс відповідним чином. Реалізуйте метод get_balance, який повертає поточний баланс.
 """
 
-
 class BankAccount:  #Клас про банківський рахунок
     def __init__(self, account_number: str, initial_balance: int | float = 0):
         self.account_number: str = account_number # Атрибут: номер рахунку
@@ -40,7 +39,6 @@ class BankAccount:  #Клас про банківський рахунок
 
     def get_balance(self) -> int | float:   #Метод для отримання поточного балансу.
         return self.balance
-
 
     def get_account_info(self) -> str:  # Метод, який повертає інформацію.
         return f'Інформація: Рахунок № {self.account_number}, Поточний баланс: {self.balance:.2f}'
@@ -84,7 +82,6 @@ print(account2)
 Реалізуйте клас Student (Студент) із атрибутами name (ім'я) та grades (оцінки). 
 Додати метод average_grade, який обчислює середню оцінку студента.
 """
-
 
 class Student:  #Клас для представлення студента та його оцінок.
     def __init__(self, name: str, initial_grades: list[int] | None = None):
@@ -162,7 +159,7 @@ class StudentGroup: #Клас для представлення групи ст�
         self.students: list[Student] = []
         print(f'Групу "{self.group_name}" створено.')
 
-    def add_student(self, student: Student):    #Метод додає об студента до групи.
+    def add_student(self, student: Student):    #Метод додає студента до групи.
         if isinstance(student, Student):
             if student not in self.students:
                  self.students.append(student)
