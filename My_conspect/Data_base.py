@@ -756,4 +756,158 @@ while True:
     except:
         print("Вибачте, щось пішло не так...")
 
+#=======================================================================================
+        #import#
+import math
+import sys
+
+import math, sys
+
+import math
+print(math.sin(math.pi/2))  #1.0
+
+import math
+def sin(x):
+    if 2 * x == pi:
+        return 0.99999999
+    else:
+        return None
+pi = 3.14
+print(sin(pi/2))            #0.99999999
+print(math.sin(math.pi/2))  #1.0
+
+from math import sin, pi
+print(sin(pi/2))    #1.0
+
+from module import *    #* - означає, що імпортує всі модулі по типу sin, pi, ...
+#Така інструкція імпортує всі сутності з вказаного модуля.
+
+"""
+Можна змінити назву модуля як тобі подобається за допомогою --as--
+після успішного виконання імпорту псевдоніма оригінальне ім'я модуля 
+стає недоступним і не повинно використовуватися.
+"""
+import module as alias
+
+import math as m
+print(m.sin(m.pi / 2))
+
+from module import name as alias
+from module import n as a, m as b, o as c
+
+from math import pi as PI, sin as sine
+print(sine(PI / 2))
+
+dir(module)
+#Функція повертає відсортований за алфавітом список,
+#що містить всі доступні в модулі імена сутностей,
+#ідентифіковані іменем, переданим у функцію як аргумент:
+
+import math
+dir(math)
+
+from math import pi, radians, degrees, sin, cos, tan, asin
+ad = 90
+ar = radians(ad)
+ad = degrees(ar)
+print(ad == 90.)
+print(ar == pi / 2.)
+print(sin(ar) / cos(ar) == tan(ar))
+print(asin(sin(ar)) == ar)
+
+random()
+#генерує псевдовипадкові числа
+seed()
+#здатна безпосередньо встановлювати початкове число генератора
+#встановлює seed з поточним часом
+seed(int_value)
+#встановлює seed з цілочисельним значенням int_value
+
+from random import random, seed
+seed(0)
+for i in range(5):
+    print(random())
+
+#Якщо вам потрібні цілі випадкові значення,
+#краще підійде одна з наступних функцій:
+randrange(end)
+randrange(beg, end)
+randrange(beg, end, step)
+randint(left, right)
+
+#Перші три виклики згенерують ціле число,
+#взяте (псевдовипадково) з діапазону (відповідно):
+range(end)
+range(beg, end)
+range(beg, end, step)
+
+from random import randint
+for i in range(10):
+    print(randint(1, 10), end=',')
+
+choice(sequence)
+#вибирає «випадковий» елемент з вхідної послідовності і повертає його
+sample(sequence, elements_to_choose)
+#будує список (зразок), що складається з elements_to_choose елемента,
+#«намальованого» з вхідної послідовності
+
+from random import choice, sample
+my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+print(choice(my_list))
+print(sample(my_list, 5))
+print(sample(my_list, 10))
+"""
+4
+[3, 1, 8, 9, 10]
+[10, 8, 5, 1, 6, 4, 3, 9, 7, 2]
+"""
+
+platform()
+#дозволяє отримати доступ до даних базової платформи,
+#тобто до інформації про версію апаратного забезпечення,
+#операційної системи та інтерпретатора.
+
+from platform import platform
+print(platform())   #Windows-11-10.0.22631-SP0
+print(platform(1))  #Windows-11-10.0.22631-SP0
+print(platform(0, 1))   #Windows-11
+
+machine()
+#ім'я процесора, який запускає вашу ОС разом із Python
+from platform import machine
+print(machine())    #AMD64
+
+processor()
+#повертає рядок, заповнений справжнім іменем процесора
+from platform import processor
+print(processor())  #Intel64 Family 6 Model 140 Stepping 1, GenuineIntel
+
+system()
+#повертає загальне ім'я ОС у вигляді рядка
+from platform import system
+print(system()) #Windows
+
+version()
+#Версія ОС у вигляді рядка
+from platform import version
+print(version())    #10.0.22631
+
+python_implementation() #повертає рядок, що позначає реалізацію Python
+
+python_version_tuple()
+"""
+повертає кортеж із трьох елементів, заповнений:
+основна частина версії Python;
+другорядна частина;
+номер рівня патча.
+"""
+from platform import python_implementation, python_version_tuple
+print(python_implementation())  #CPython
+print(python_version_tuple())   #('3', '13', '3')
+for atr in python_version_tuple():
+    print(atr)
+#3
+#13
+#3
+
 

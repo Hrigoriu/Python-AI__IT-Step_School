@@ -7,7 +7,7 @@
 *перевірки наявності товару (через магічний метод __contains__),
 *додавання товару.
 """
-
+#variant№1
 class Product:
     def __init__(self, name: str, price: float):
         if not isinstance(name, str) or not name.strip():
@@ -73,6 +73,56 @@ print(f'В магазині є "Мишка"? {"Мишка" in my_shop}') #  True
 print(f'В магазині є "Навушники"? {"Навушники" in my_shop}') # False
 print(f'В магазині є "ноутбук" ? {"ноутбук" in my_shop}') # True
 print(f'В магазині є об\'єкт product1? {product1 in my_shop}') # False, бо __contains__ перевіряє рядок, а не об`єкт
+#---------------------------------------------------------------------
+#variant№2
+
+class Product:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+    def __str__(self):
+        return f'Продукт "{self.name}". Ціна: {self.price}$'
+
+class Shop:
+    def __init__(self):
+        self.products: list[Product] = []
+
+    def __getitem__(self, item):    # print(shop[item])
+        index = item - 1
+        if index not in range(len(self.products)):
+            return 'Товару не існує'
+        return self.products[index]
+
+    def __setitem__(self, key, value):  #shop[key] = value
+        if type(value) is not Product:
+            raise ValueError('До магазину можна додати лише продукт!')
+        index = key -1
+        if index in range(len(self.products)):
+            self.products[index] = value
+
+    def add_product(self, name, price):
+        new_product = Product(name, price)
+        if new_product not in self.products:
+            self.products.append(new_product)
+
+    def print_products(self):
+        return '\n'.join(f'{index}. {pr}' for index, pr in enumerate(self.products, start=1))
+
+shop = Shop()
+shop.add_product('Яблуко', 10)
+shop.add_product('Груша', 15)
+shop.add_product('Мандарин', 30)
+
+print(shop.print_products())
+
+print(shop[0])
+print(shop[1])
+print(shop[2])
+print(shop[4])
+shop[1] = Product('Апельсин', 25)
+print(shop[1])
+
 
 #===========================================================================
 """
