@@ -910,4 +910,46 @@ for atr in python_version_tuple():
 #13
 #3
 
+package(moduleA1(functionA1(), functionA2(), ...),moduleB2(functionB1(), functionB2(), ...),...)
+""" 
+Примітка: обидва файли повинні знаходитися в одній папці.
+1.module.py
+2.main.py (в середині файла написати: import module)
+3. Автоматично створиться папка __pycache__
+4. Всередині цієї папки є файл module.cpython-xy.pyc
+x і y — це цифри, отримані з вашої версії Python
+5. Пишемо в module.py 
+print("I like to be a module.")
+
+Потім пишено: 
+print("I like to be a module.")
+print(__name__)
+
+Потім пишемо:
+if __name__ == "__main__":
+   print("I prefer to be a module.")
+else:
+   print("I like to be a module.")
+
+Потім пишемо:
+counter = 0
+   if __name__ == "__main__":
+   print("I prefer to be a module.")
+else:
+   print("I like to be a module.")
+6. У файл main.py пишемо:
+import module
+print(module.counter)
+
+"""
+
+
+
+
+
+
+
+
+
+
 

@@ -33,5 +33,17 @@
                 }
             }
         ]
+    },
+    {
+        "id": 2,
+        "month": "\u041a\u0432\u0456\u0442\u0435\u043d\u044c 2025",
+        "hours": 145.0,
+        "consultation_cost": 1470.0,
+        "coefficient": 0.25,
+        "salary": 106575.0,
+        "usd_rate": 41.84,
+        "eur_rate": 47.85,
+        "date_added": "2025-04-29 17:27:09",
+        "history": []
     }
 ]
