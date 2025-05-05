@@ -943,6 +943,186 @@ print(module.counter)
 
 """
 
+    #Рядки  string
+"""
+*однорядкові рядки: 'string' "string"
+*багаторядкові рядки: 
+'''
+string
+'''
+
+"""
+string
+"""
+
+"""
+#----------------------
+word = 'by'
+print(len(word))#2
+
+empty = ''
+print(len(empty))#0
+
+print(len("\n\n"))#2
+
+i_am = 'I\'m'
+print(len(i_am))#3
+
+multiline = """Line #1
+Line #2"""
+print(len(multiline))#15
+#-----------------------------------
+str1 = 'a'
+str2 = 'b'
+print(str1 + str2)#ab
+print(str2 + str1)#ba
+print(5 * 'a')#aaaaa
+print('b' * 4)#bbbb
+#--------------------------------------
+char_1 = 'a'
+char_2 = ' '  # space пробіл
+print(ord(char_1))#97   По системі ASCII/UNICODE
+print(ord(char_2))#32   По системі ASCII/UNICODE
+#------------------------------------------
+""" 
+chr(ord(character)) == character
+ord(chr(codepoint)) == codepoint
+"""
+#-------------------------------------------
+print(chr(97))#a    По системі ASCII/UNICODE - навпаки
+print(chr(945))#α   По системі ASCII/UNICODE - навпаки
+#---------------------------------------------
+the_string = 'silly walks'
+for ix in range(len(the_string)):
+    print(the_string[ix], end=' ')
+print()#s i l l y   w a l k s
+
+the_string = 'silly walks'
+for ix in the_string:
+    print(ix, end=' ')
+print()#s i l l y   w a l k s
+#--------------------------------------------------
+alpha = "abdefg"
+print(alpha[1:3])#bd
+print(alpha[3:])#efg
+print(alpha[:3])#abd
+print(alpha[3:-2])#e
+print(alpha[-3:4])#e
+print(alpha[::2])#adf
+print(alpha[1::2])#beg
+#-----------------------------------------------------------
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+print("f" in alphabet)#True
+print("F" in alphabet)#False
+print("1" in alphabet)#False
+print("ghi" in alphabet)#True
+print("Xyz" in alphabet)#False
+
+alphabet = "abcdefghijklmnopqrstuvwxyz"
+print("f" not in alphabet)#False
+print("F" not in alphabet)#True
+print("1" not in alphabet)#True
+print("ghi" not in alphabet)#False
+print("Xyz" not in alphabet)#True
+#-------------------------------------------------------------
+alphabet = "bcdefghijklmnopqrstuvwxy"
+alphabet = "a" + alphabet
+alphabet = alphabet + "z"
+print(alphabet)#abcdefghijklmnopqrstuvwxyz
+#-------------------------------------------------------
+print(min("aAbByYzZ"))#A
+
+t = 'The Knights Who Say "Ni!"'
+print('[' + min(t) + ']')#[ ]
+
+t = [0, 1, 2]
+print(min(t))#0
+#----------------------------------------------------
+print(max("aAbByYzZ"))#z
+
+t = 'The Knights Who Say "Ni!"'
+print('[' + max(t) + ']')#[y]
+
+t = [0, 1, 2]
+print(max(t))#2
+#---------------------------------------------------------
+print("aAbByYzZaA".index("b"))#2
+print("aAbByYzZaA".index("Z"))#7
+print("aAbByYzZaA".index("A"))#1
+#----------------------------------------------------
+print(list("abcabc"))#['a', 'b', 'c', 'a', 'b', 'c']
+#-----------------------------------------------------
+            # .count()
+print("abcabc".count("b"))#2
+print('abcabc'.count("d"))#0
+
+#=====================================================
+            # .capitalize()
+print("Alpha".capitalize())#Alpha
+print('ALPHA'.capitalize())#Alpha
+print(' Alpha'.capitalize())# alpha
+print('123'.capitalize())#123
+print("αβγδ".capitalize())#Αβγδ
+
+print('[' + 'alpha'.center(10) + ']')#[  alpha   ]
+print('[' + 'Beta'.center(2) + ']')#[Beta]
+print('[' + 'Beta'.center(4) + ']')#[Beta]
+print('[' + 'Beta'.center(6) + ']')#[ Beta ]
+print('[' + 'gamma'.center(20, '*') + ']')#[*******gamma********]
+
+#---------------------------------------------------------------------
+            # .endswith()
+if "epsilon".endswith("on"):
+    print("yes")
+else:
+    print("no")
+#Видасть yes
+
+t = "zeta"
+print(t.endswith("a"))#True
+print(t.endswith("A"))#False
+print(t.endswith("et"))#False
+print(t.endswith("eta"))#True
+#----------------------------------------------------------
+            # .find()
+print("Eta".find("ta"))#1
+print("Eta".find("mma"))#-1
+t = 'theta'
+print(t.find('eta'))#2
+print(t.find('et'))#2
+print(t.find('the'))#0
+print(t.find('ha'))#-1
+
+print('kappa'.find('a', 1, 4))#1
+print('kappa'.find('a', 2, 4))#-1
+#--------------------------------------------------------------
+            # .isalnum()    лише цифри або алфавітні символи (літери)
+print('lambda30'.isalnum())#True
+print('lambda'.isalnum())#True
+print('30'.isalnum())#True
+print('@'.isalnum())#False
+print('lambda_30'.isalnum())#False
+print(''.isalnum())#False
+#------------------------------------------------------------------
+            #isalpha() лише літери
+print("Moooo".isalpha())#True
+print('Mu40'.isalpha())#False
+#------------------------------------------------------------------
+            #islower() лише літери нижнього регістру
+print("Moooo".islower())#False
+print('moooo'.islower())#True
+#------------------------------------------------------------------
+            #islower() лише літери верхнього регістру
+#-------------------------------------------------------------------
+            #isdigit() лише цифри
+print('2018'.isdigit())#True
+print("Year2019".isdigit())#False
+#-------------------------------------------------------------------
+            #isspace() лише пробіли
+print(' \n '.isspace())#True
+print(" ".isspace())#True
+print("mooo mooo mooo".isspace())#False
+
 
 
 

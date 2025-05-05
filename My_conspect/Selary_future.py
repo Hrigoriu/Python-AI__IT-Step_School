@@ -347,7 +347,7 @@ def print_salary_by_month():
         if entry['month'].lower() == month.lower():
             print(f"\nЗапис за {entry['month']}:")
             print(f"Зарплата: {format_salary(entry['salary'], entry['usd_rate'], entry['eur_rate'])}")
-            # print(f"Робочі години: {entry['hours']}")
+            print(f"Робочі години: {entry['hours']}")
             # print(f"Вартість консультації: {entry['consultation_cost']}")
             # print(f"Коефіцієнт: {entry['coefficient']}")
             print(f"Курс долара: {entry['usd_rate']} UAH")
@@ -433,7 +433,7 @@ def print_all_salary_data(sort_by='month', year_filter=None):
     for entry in sorted_data:
         print(f"\nЗапис #{entry['id']}")
         print(f"Місяць: {entry['month']}")
-        # print(f"Робочі години: {entry['hours']}")
+        print(f"Робочі години: {entry['hours']}")
         # print(f"Вартість консультації: {entry['consultation_cost']}")
         # print(f"Коефіцієнт: {entry['coefficient']}")
         print(f"Курс долара: {entry['usd_rate']} UAH")
