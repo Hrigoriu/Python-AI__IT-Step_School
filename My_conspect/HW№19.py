@@ -9,7 +9,7 @@
 """
 import json
 
-DATABASE_FILE = 'files\\products.json'
+DATABASE_FILE = '../files/products.json'
 
 def load_data():
     try:
@@ -113,7 +113,7 @@ if __name__ == "__main__":
 """
 import pickle
 
-CONTACTS_FILE = 'files\\contacts.pkl'
+CONTACTS_FILE = '../files/contacts.pkl'
 
 def load_contacts():
     try:

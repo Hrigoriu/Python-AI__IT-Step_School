@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-DATABASE_FILE = 'files\\diary.json'
+DATABASE_FILE = '../files/diary.json'
 """
 Розробіть застосунок «Щоденник з базою даних». 
 Застосунок передбачає наступний функціонал: 

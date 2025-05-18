@@ -305,7 +305,7 @@ class SalaryManager:
         try:
             with open(self.database_file, 'w', encoding='utf-8') as file:
                 json.dump(data_to_save, file, indent=4, ensure_ascii=False) # ensure_ascii=False для збереження кирилиці
-            # print(f"Дані успішно збережено у {self.database_file}.") # Можна вимкнути для менш "багатослівного" виводу
+            print(f"Дані успішно збережено у {self.database_file}.") # Можна вимкнути для менш "багатослівного" виводу
         except Exception as e:
             print(f"Помилка при збереженні даних у {self.database_file}: {e}")
 

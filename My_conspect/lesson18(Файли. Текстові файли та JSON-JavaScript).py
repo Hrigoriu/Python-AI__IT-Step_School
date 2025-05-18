@@ -23,7 +23,7 @@ def numbers_sorter(input_file_path: str, output_file_path='files\\result.txt'):
     with open(output_file_path, 'w') as write_file:
         print(*numbers, sep='\n', file=write_file)
 
-numbers_sorter('files\\data.txt')
+numbers_sorter('../files/data.txt')
 
 #Variant №2
 
@@ -115,7 +115,7 @@ def get_best_students(input_file_path: str):
                 grades = list(map(int, split[2:]))
                 if sum(grades) / len(grades) > 6:
                     print(name, file=write_file)
-get_best_students('files\\input.txt')
+get_best_students('../files/input.txt')
 
 ==============================================================
 
@@ -138,14 +138,14 @@ python_data = {
     'key4': None
 }
 
-with open('files\\data.json', 'w') as json_file:
+with open('../files/data.json', 'w') as json_file:
     json.dump(python_data, json_file, indent=4)
 
 ==================================
 #Читання
 import json
 
-with open('files\\data.json', 'r') as json_file:
+with open('../files/data.json', 'r') as json_file:
     data = json.load(json_file)
 print(data)
 
@@ -161,10 +161,10 @@ print(json_data)
 Написати програму, яка добавляє 1.
 """
 import json
-with open('files\\data.json', 'r') as file:
+with open('../files/data.json', 'r') as file:
     data = json.load(file)
 data.append(1)
-with open('files\\data.json', 'w') as file:
+with open('../files/data.json', 'w') as file:
     json.dump(data, file)
 ========================================================
 

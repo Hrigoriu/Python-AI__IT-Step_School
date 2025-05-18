@@ -1057,7 +1057,7 @@ print("abcabc".count("b"))#2
 print('abcabc'.count("d"))#0
 
 #=====================================================
-            # .capitalize()
+            # .capitalize() змінює всі рядкові літери на великі
 print("Alpha".capitalize())#Alpha
 print('ALPHA'.capitalize())#Alpha
 print(' Alpha'.capitalize())# alpha
@@ -1084,6 +1084,11 @@ print(t.endswith("A"))#False
 print(t.endswith("et"))#False
 print(t.endswith("eta"))#True
 #----------------------------------------------------------
+            # .startswith() є дзеркальним відображенням endswith() –
+            # він перевіряє, чи починається заданий рядок із заданим підрядком
+print("omega".startswith("meg"))#False
+print("omega".startswith("om"))#True
+#--------------------------------------------------------------------
             # .find()
 print("Eta".find("ta"))#1
 print("Eta".find("mma"))#-1
@@ -1104,30 +1109,612 @@ print('@'.isalnum())#False
 print('lambda_30'.isalnum())#False
 print(''.isalnum())#False
 #------------------------------------------------------------------
-            #isalpha() лише літери
+            # .isalpha() лише літери
 print("Moooo".isalpha())#True
 print('Mu40'.isalpha())#False
 #------------------------------------------------------------------
-            #islower() лише літери нижнього регістру
+            # .islower() лише літери нижнього регістру
 print("Moooo".islower())#False
 print('moooo'.islower())#True
 #------------------------------------------------------------------
-            #islower() лише літери верхнього регістру
-#-------------------------------------------------------------------
-            #isdigit() лише цифри
+            # .isdigit() лише цифри
 print('2018'.isdigit())#True
 print("Year2019".isdigit())#False
 #-------------------------------------------------------------------
-            #isspace() лише пробіли
+            # .isspace() лише пробіли
 print(' \n '.isspace())#True
 print(" ".isspace())#True
 print("mooo mooo mooo".isspace())#False
+#--------------------------------------------------------------------
+            # .isupper()  лише лише на літерах верхнього регістру
+print("Moooo".isupper())#False
+print('moooo'.isupper())#False
+print('MOOOO'.isupper())#True
+#--------------------------------------------------------------------
+            # .join() виконує об'єднання списків у рядок  list[]-->string()
+print(",".join(["omicron", "pi", "rho"]))#omicron,pi,rho
+#!!! якщо у списку не рядки, то буде TypeError
+#... рядок, з якого був викликаний метод, використовується як роздільник, що ставиться серед рядків;
+#аргумент join — це список, що містить три рядки;
+#--------------------------------------------------------------------
+            # .split()    розбиває рядок і будує список усіх виявлених підрядків string()-->list[]
+print("phi       chi\npsi".split())#['phi', 'chi', 'psi']
+#--------------------------------------------------------------------
+            # .lower() замінює всі літери верхнього регістру на їх аналоги в нижньому регістрі
+print("SiGmA=60".lower())#sigma=60
+#--------------------------------------------------------------------
+            #. lstrip()   видаляє спереді всe, що в дужках, в його аргументі (рядок)
+print("[" + " tau ".lstrip() + "]")#[tau ]
+print("www.cisco.com".lstrip("w."))#cisco.com
+print("pythoninstitute.org".lstrip(".org"))#pythoninstitute.org
+print("pythoninstitute.org".lstrip("pythoninstitute"))#.org
+#--------------------------------------------------------------------
+            # .rstrip()  видаляє заді всe, що в дужках, в його аргументі (рядок)
+print("[" + " upsilon ".rstrip() + "]")#[ upsilon]
+print("cisco.com".rstrip(".com"))#cis
+#--------------------------------------------------------------------
+            # .strip()  поєднує ефекти, спричинені rstrip() та lstrip() –
+            # він створює новий рядок, у якому відсутні всі початкові та кінцеві пробіли
+print("[" + "   aleph   ".strip() + "]")#[aleph]
+#--------------------------------------------------------------------
+            # .replace()  замінює, що в дужках, в його аргументі (старе на нове)
+print("www.netacad.com".replace("netacad.com", "pythoninstitute.org"))#www.pythoninstitute.org
+print("This is it!".replace("is", "are"))#Thare are it!
+print("Apple juice".replace("juice", ""))#Apple
+print("This is it!".replace("is", "are", 1))#Thare is it!
+print("This is it!".replace("is", "are", 2))#Thare are it!
+#--------------------------------------------------------------------
+            # .rfind()    починають свої пошуки з кінця рядка, а не з початку (звідси префікс r, що означає right)
+print("tau tau tau".rfind("ta"))#8
+print("tau tau tau".rfind("ta", 9))#-1
+print("tau tau tau".rfind("ta", 3, 9))#4
+#--------------------------------------------------------------------
+            # .split()    розбиває рядок і будує список усіх виявлених підрядків string()-->list[]
+print("phi       chi\npsi".split())#['phi', 'chi', 'psi']
+#--------------------------------------------------------------------
+            #swapcase() міняє символи, символи нижнього регістру стають великими літерами, і навпаки
+print("I know that I know nothing.".swapcase())#i KNOW THAT i KNOW NOTHING.
+#--------------------------------------------------------------------
+            #title()    змінює першу літеру кожного слова на верхній регістр,
+            # перетворюючи всі інші на малі.
+print("I know that I know nothing. Part 1.".title())#I Know That I Know Nothing. Part 1
+#--------------------------------------------------------------------
+            #upper()    замінює всі літери нижнього регістру на їхні аналоги у верхньому регістрі
+print("I know that I know nothing. Part 2.".upper())#I KNOW THAT I KNOW NOTHING. PART 2.
+#--------------------------------------------------------------------
+            #Підсумок
+"""
+ .capitalize() –    змінює всі рядкові літери на великі;
+ .swapcase() –      міняє місцями регістри літер (нижні на верхні та навпаки)
+ .title() –         робить першу літеру в кожному слові великою літерою;
+ .lower() –         перетворює всі літери рядка на літери нижнього регістру;
+ .upper() –         перетворює всі літери рядка на літери верхнього регістру.
+ .center() –        центрує рядок всередині поля відомої довжини;
+ .count() –         підраховує входження заданого символу;
+ .join() –          об'єднує всі елементи кортежу/списку в один рядок;
+ .lstrip() –        видаляє білі символи з початку рядка;
+ .rstrip() –        видаляє кінцеві білі пробіли з кінця рядка;
+ .strip() –         видаляє початкові та кінцеві білі пробіли;
+ .replace() –       замінює заданий підрядок на інший;
+ .rfind() –         знаходить підрядок, починаючи з кінця рядка;
+ .split() –         розбиває рядок на підрядок за допомогою заданого роздільника;
+
+ .startswith() –    чи починається рядок із заданого підрядка?
+ .endswith() –      чи закінчується рядок заданим підрядком?
+ .isalnum() –       рядок складається тільки з букв і цифр?
+ .isalpha() –       рядок складається лише з літер?
+ .islower() –       чи рядок складається лише з малих літер?
+ .isupper() –       рядок складається лише з літер верхнього регістру?
+ .isspace() –       чи рядок складається лише з білих пробілів?
+"""
+#=================================================================================
+"""
+== != > >= < <= 
+"""
+'alpha' == 'alpha'
+'alpha' != 'Alpha'
+'alpha' < 'alphabet'
+'beta' > 'Beta'#
+#Порівняння рядків завжди враховується за регістром
+#(літери верхнього регістру сприймаються як менші, ніж літери нижнього регістру)
+print('10' == '010')#False
+print('10' > '010')#True
+print('10' > '8')#False
+print('20' < '8')#True
+print('20' < '80')#True
+#----------------------------------------------------------
+          #sorted() сортує
+          # .sort()
+#variant#1
+first_greek = ['omega', 'alpha', 'pi', 'gamma']
+first_greek_2 = sorted(first_greek)
+print(first_greek)  #['omega', 'alpha', 'pi', 'gamma']
+print(first_greek_2)#['alpha', 'gamma', 'omega', 'pi']
+#variant#2
+second_greek = ['omega', 'alpha', 'pi', 'gamma']
+print(second_greek)#['omega', 'alpha', 'pi', 'gamma']
+second_greek.sort()
+print(second_greek)#['alpha', 'gamma', 'omega', 'pi']
+#------------------------------------------------------------
+            #str-->int, float
+itg = 13
+flt = 1.3
+si = str(itg)
+sf = str(flt)
+print(si + ' ' + sf)#13 1.3
+#
+si = '13'
+sf = '1.3'
+itg = int(si)
+flt = float(sf)
+print(itg + flt)#14.3
+#=============================================================================
+            #Винятки
+ValueError
+ZeroDivisionError
+IndexError
+#var1
+first_number = int(input("Enter the first number: "))
+second_number = int(input("Enter the second number: "))
+if second_number != 0:
+    print(first_number / second_number)
+else:
+    print("This operation cannot be done.")
+print("THE END.")
+#---------------------------------------------------------------
+#var2
+first_number = int(input("Enter the first number: "))
+second_number = int(input("Enter the second number: "))
+try:
+    print(first_number / second_number)
+except:
+    print("This operation cannot be done.")
+print("THE END.")
+"""Так саме ліпше
+try:
+    :
+except:
+    :
+#-----------------------------------   
+try:
+    :
+except exc1:
+    :
+except exc2:
+    :
+except:
+    : 
+#------------------------------------
+try:
+    :
+except (exc1, exc2):
+    :
+#-----------------------------------
+raise лише всередині except
+#-----------------------------------
+# The code that always runs smoothly.
+:
+try:
+    :
+    # Risky code.
+    :
+except:
+    :
+    # Crisis management takes place here.
+    :
+:
+# Back to normal.
+: 
+#-------------------------------------------------
+# The code that always runs smoothly.
+:
+try:
+    :
+    # Risky code.
+    :
+except Except_1:
+    # Crisis management takes place here.
+except Except_2:
+    # We save the world here.
+:
+# Back to normal.
+:
+#-------------------------------------------
+# The code that always runs smoothly.
+:
+try:
+    :
+    # Risky code.
+    :
+except Except_1:
+    # Crisis management takes place here.
+except Except_2:
+    # We save the world here.
+except:
+    # All other issues fall here.
+:
+# Back to normal.
+:   
+#-----------------------------------------------------
+Винятки ставити від меншого до більшого
+try:
+    # Risky code.
+except IndexError:
+    # Taking care of mistreated lists
+except LookupError:
+    # Dealing with other erroneous lookups
+"""
+#-----------------------------------------------------
+try:
+    x = int(input("Enter a number: "))
+    y = 1 / x
+    print(y)
+except ZeroDivisionError:
+    print("You cannot divide by zero, sorry.")
+except ValueError:
+    print("You must enter an integer value.")
+except:
+    print("Oh dear, something went wrong...")
+print("THE END.")
+#--------------------------------------------
+def bad_fun(n):
+    raise ZeroDivisionError
+try:
+    bad_fun(0)
+except ArithmeticError:
+    print("What happened? An error?")
+print("THE END.")
+#---------------------------------------
+def bad_fun(n):
+    try:
+        return n / 0
+    except:
+        print("I did it again!")
+        raise
+try:
+    bad_fun(0)
+except ArithmeticError:
+    print("I see!")
+print("THE END.")
+"""
+#-----------------------------------
+    raise лише всередині except
+#-----------------------------------
+ """
+assert expression3  #коли вираз дорівнює нулю
+#----------------------------------------
+import math
+x = float(input("Enter a number: "))
+assert x >= 0.0
+x = math.sqrt(x)
+print(x)    #AssertionError якщо ввести <0
+#----------------------------------------
+""" 
+           BaseException
+                 ↑
+     ____________|___________        
+     ↑           ↑          ↑              
+SystemExit  Exception KeyboardInterrupt 
+                 ↑
+    _____________|______________________________________________________ 
+    ↑            ↑          ↑               ↑            ↑              ↑
+ValueError LookupError ArithmeticError AssertionError MemoryError StandardError
+               ↑            ↑                                           ↑
+   ____________|_          _↑___________                                ↑
+   ↑           ↑            ↑          ↑                                ↑
+IndexError KeyError ZeroDivisionError OverflowError                ImportError
+"""
+
+BaseException ← KeyboardInterrupt
+#користувач використовує комбінацію клавіш Ctrl-C
+BaseException ← Exception ← AssertionError
+#коли її аргумент має значення False, None, 0 або порожній рядок
+BaseException ← Exception ← LookupError
+#коли є неправильні посилання на різні колекції (списки, словники, кортежі тощо)
+BaseException ← Exception ← LookupError ← IndexError
+#при спробі отримати доступ до елемента неіснуючої послідовності (наприклад, елемента списку)
+BaseException ← Exception ← LookupError ← KeyError
+#коли ви намагаєтеся отримати доступ до неіснуючого елемента в колекції (наприклад, елемента словника)
+BaseException ← Exception ← MemoryError
+#коли операція не може бути завершена через брак вільної пам'яті
+BaseException ← Exception ← ArithmeticError
+#поділ на нуль або неприпустимий домен аргументу
+BaseException ← Exception ← ArithmeticError ← OverflowError
+#коли операція виробляє число, занадто велике для успішного зберігання
+BaseException ← Exception ← StandardError ← ImportError
+#коли операція імпорту не вдається виконати
+#=============================================================
+        #Об'єктно-Орієнтоване Програмування
+"""       
+Клас має сукупність Об'єктів
+Об'єкт має атрибути(параметри) та методи(функції)
+Об'єкт успадковує всі ознаки від суперкласу
+Об'єкт і використовуєте:
+
+Об'єкт має (щоб легше запам'ятати) має:
+*іменник –      ви, ймовірно, визначаєте назву предмета;
+*прикметник –   ви, мабуть, визначаєте властивість предмета;
+*дієслово –     ви, мабуть, визначаєте діяльність предмета.
+Рожевий Cadillac поїхав швидко.
+
+Назва об'єкта = Cadillac
+Home class = Колісні транспортні засоби
+Властивість = Колір (рожевий)
+Активність = Їхати (швидко)
+
+A pink Cadillac went quickly.
+Object name = Cadillac
+Home class = Wheeled vehicles
+Property = Color (pink)
+Activity = Go (quickly)
+#------------------------------
+Рудольф – велика кішка, яка спить цілий день.
+Ім'я об'єкта = Рудольф
+Домашній клас = Кіт
+Властивість = Розмір (великий)
+Активність = Сон (весь день)
+
+Rudolph is a large cat who sleeps all day.
+Object name = Rudolph
+Home class = Cat
+Property = Size (large)
+Activity = Sleep (all day)
+"""
+class TheSimplestClass: #Клас
+    pass
+my_first_object = TheSimplestClass()    #Об'єкт
+#==========================================================
+
+class Stack:  # Defining the Stack class.
+    def __init__(self):  # Defining the constructor function.
+        print("Hi!")
+stack_object = Stack()  # Instantiating the object.
+#Видасть: Hi!
+#------------------------------------------------------
+class Stack:
+    def __init__(self):
+        self.stack_list = []
+stack_object = Stack()
+print(len(stack_object.stack_list))
+#Видасть: 0
+#--------------------------------------------------------
+class Stack:
+    def __init__(self):
+        self.__stack_list = []
+
+    def push(self, val):
+        self.__stack_list.append(val)
+
+    def pop(self):
+        val = self.__stack_list[-1]
+        del self.__stack_list[-1]
+        return val
+
+stack_object = Stack()
+
+stack_object.push(3)
+stack_object.push(2)
+stack_object.push(1)
+
+print(stack_object.pop())#1
+print(stack_object.pop())#2
+print(stack_object.pop())#3
+#------------------------------------------------
+class Stack:
+    def __init__(self):
+        self.__stack_list = []
+
+    def push(self, val):
+        self.__stack_list.append(val)
+
+    def pop(self):
+        val = self.__stack_list[-1]
+        del self.__stack_list[-1]
+        return val
+
+stack_object_1 = Stack()
+stack_object_2 = Stack()
+
+stack_object_1.push(3)
+stack_object_2.push(stack_object_1.pop())
+print(stack_object_2.pop())#3
+#---------------------------------------------
+class Stack:
+    def __init__(self):
+        self.__stk = []
+
+    def push(self, val):
+        self.__stk.append(val)
+
+    def pop(self):
+        val = self.__stk[-1]
+        del self.__stk[-1]
+        return val
+
+class CountingStack(Stack):
+    def __init__(self):
+        Stack.__init__(self)
+        self.__counter = 0
+
+    def get_counter(self):
+        return self.__counter
+
+    def pop(self):
+        self.__counter += 1
+        return Stack.pop(self)
+
+stk = CountingStack()
+for i in range(100):
+    stk.push(i)
+    stk.pop()
+print(stk.get_counter())
+#100
+#------------------------------------------
+class QueueError(IndexError):
+    pass
 
 
+class Queue:
+    def __init__(self):
+        self.queue = []
 
+    def put(self, elem):
+        self.queue.insert(0, elem)
 
+    def get(self):
+        if len(self.queue) > 0:
+            elem = self.queue[-1]
+            del self.queue[-1]
+            return elem
+        else:
+            raise QueueError
 
+que = Queue()
+que.put(1)
+que.put("dog")
+que.put(False)
+try:
+    for i in range(4):
+        print(que.get())
+except:
+    print("Queue error")
+#1
+#dog
+#False
+#Queue error
+#-----------------------------------------------------------
+class QueueError(IndexError):
+    pass
 
+class Queue:
+    def __init__(self):
+        self.queue = []
+
+    def put(self, elem):
+        self.queue.insert(0, elem)
+
+    def get(self):
+        if len(self.queue) > 0:
+            elem = self.queue[-1]
+            del self.queue[-1]
+            return elem
+        else:
+            raise QueueError
+
+class SuperQueue(Queue):
+    def isempty(self):
+        return len(self.queue) == 0
+
+que = SuperQueue()
+que.put(1)
+que.put("dog")
+que.put(False)
+for i in range(4):
+    if not que.isempty():
+        print(que.get())
+    else:
+        print("Queue empty")
+#1
+#dog
+#False
+#Queue empty
+#------------------------------------------------------
+class ExampleClass:
+    def __init__(self, val = 1):
+        self.first = val
+
+    def set_second(self, val):
+        self.second = val
+
+example_object_1 = ExampleClass()
+example_object_2 = ExampleClass(2)
+example_object_2.set_second(3)
+example_object_3 = ExampleClass(4)
+example_object_3.third = 5
+
+print(example_object_1.__dict__)#{'first': 1}
+print(example_object_2.__dict__)#{'first': 2, 'second': 3}
+print(example_object_3.__dict__)#{'first': 2, 'second': 3}
+#--------------------------------------------------------------
+class ExampleClass:
+    def __init__(self, val = 1):
+        self.__first = val
+
+    def set_second(self, val = 2):
+        self.__second = val
+
+example_object_1 = ExampleClass()
+example_object_2 = ExampleClass(2)
+example_object_2.set_second(3)
+example_object_3 = ExampleClass(4)
+example_object_3.__third = 5
+
+print(example_object_1.__dict__)#{'_ExampleClass__first': 1}
+print(example_object_2.__dict__)#{'_ExampleClass__first': 2, '_ExampleClass__second': 3}
+print(example_object_3.__dict__)#{'_ExampleClass__first': 4, '__third': 5}
+#--------------------------------------------------------------------
+class ExampleClass:
+    counter = 0
+    def __init__(self, val = 1):
+        self.__first = val
+        ExampleClass.counter += 1
+
+example_object_1 = ExampleClass()
+example_object_2 = ExampleClass(2)
+example_object_3 = ExampleClass(4)
+
+print(example_object_1.__dict__, example_object_1.counter)#{'_ExampleClass__first': 1} 3
+print(example_object_2.__dict__, example_object_2.counter)#{'_ExampleClass__first': 2} 3
+print(example_object_3.__dict__, example_object_3.counter)#{'_ExampleClass__first': 4} 3
+#------------------------------------------------------------------
+class ExampleClass:
+    __counter = 0
+    def __init__(self, val = 1):
+        self.__first = val
+        ExampleClass.__counter += 1
+
+example_object_1 = ExampleClass()
+example_object_2 = ExampleClass(2)
+example_object_3 = ExampleClass(4)
+
+print(example_object_1.__dict__, example_object_1._ExampleClass__counter)#{'_ExampleClass__first': 1} 3
+print(example_object_2.__dict__, example_object_2._ExampleClass__counter)#{'_ExampleClass__first': 2} 3
+print(example_object_3.__dict__, example_object_3._ExampleClass__counter)#{'_ExampleClass__first': 4} 3
+#-----------------------------------------------------------------------------
+class ExampleClass:
+    varia = 1
+    def __init__(self, val):
+        ExampleClass.varia = val
+
+print(ExampleClass.__dict__)
+example_object = ExampleClass(2)
+
+print(ExampleClass.__dict__)
+print(example_object.__dict__)
+#--------------------------------------------------------------
+class ExampleClass:
+    def __init__(self, val):
+        if val % 2 != 0:
+            self.a = 1
+        else:
+            self.b = 1
+example_object = ExampleClass(1)
+print(example_object.a)
+try:
+    print(example_object.b)
+except AttributeError:
+    pass
+#Виведе: 1
+#---------------------------------------------------------------
+class ExampleClass:
+    a = 1
+    def __init__(self):
+        self.b = 2
+example_object = ExampleClass()
+print(hasattr(example_object, 'b'))#True
+print(hasattr(example_object, 'a'))#True
+print(hasattr(ExampleClass, 'b'))#False
+print(hasattr(ExampleClass, 'a'))#True
 
 
 

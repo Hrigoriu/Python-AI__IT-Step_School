@@ -1,0 +1,68 @@
+{
+    "settings": {
+        "base_amounts": {
+            "Junior": 10000.0,
+            "Middle": 20000.0,
+            "Senior": 35000.0,
+            "Team Lead": 50000.0
+        },
+        "coefficients": {
+            "Junior": 1.0,
+            "Middle": 1.5,
+            "Senior": 2.0,
+            "Team Lead": 2.5
+        },
+        "task_costs": {
+            "Simple": 100.0,
+            "Medium": 250.0,
+            "Complex": 500.0
+        },
+        "standard_monthly_hours": 164.0,
+        "default_rates": {
+            "USD": 41.84,
+            "EUR": 47.17
+        }
+    },
+    "monthly_records": [
+        {
+            "id": 1,
+            "employee_name": "Шаров Григорій Олександрович",
+            "month_year": "Січень 2025",
+            "level": "Middle",
+            "actual_hours": 152.0,
+            "tasks_completed_value": 20000.0,
+            "usd_rate": 41.84,
+            "eur_rate": 47.17,
+            "calculated_salary_uah": 57804.87804878049,
+            "date_added": "2025-05-15 14:53:51",
+            "history": [
+                {
+                    "timestamp": "2025-05-15 14:59:11",
+                    "changes": {
+                        "tasks_completed_value": {
+                            "old": 150000.0,
+                            "new": 20000.0
+                        },
+                        "calculated_salary_uah": {
+                            "old": 252804.8780487805,
+                            "new": 57804.87804878049
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "employee_name": "Бобир Микола Іванович",
+            "month_year": "Січень 2025",
+            "level": "Senior",
+            "actual_hours": 160.0,
+            "tasks_completed_value": 15000.0,
+            "usd_rate": 41.84,
+            "eur_rate": 47.17,
+            "calculated_salary_uah": 98292.68292682926,
+            "date_added": "2025-05-16 15:54:37",
+            "history": []
+        }
+    ]
+}

@@ -12,11 +12,11 @@ GO
 6
 """
 #Variant #1
-with open('files\\data.txt', 'r') as file:
+with open('../files/data.txt', 'r') as file:
     print(len(file.readlines()))
 
 #Variant #2
-with open('files\\data.txt', 'r') as file:
+with open('../files/data.txt', 'r') as file:
     count = 0
     for line in file:
         count += 1
@@ -31,7 +31,7 @@ def count_lines(filename):
     return count
 
 def main():
-    filename = 'files\\data.txt'
+    filename = '../files/data.txt'
     line_count = count_lines(filename)
     print(line_count)
 
@@ -51,7 +51,7 @@ if __name__ == '__main__':
 Файл output.txt з вмістом
 4
 """
-with open('files//input.txt', 'r') as file:
+with open('../files/input.txt', 'r') as file:
     num1 = int(file.readline().strip())
     num2 = int(file.readline().strip())
 
@@ -76,7 +76,7 @@ def all_files(input_files, output_file):
 
 def main():
     input_files = ['files\\data.txt', 'files\\file1.txt']
-    output_file = 'files\\file2.txt'
+    output_file = '../files/file2.txt'
     all_files(input_files, output_file)
     print(f'Файли об`єднано у {output_file}')
 

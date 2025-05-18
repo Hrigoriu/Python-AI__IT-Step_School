@@ -1,24 +1,24 @@
 import  pickle
 
 data = {'set': {1, 2, 3}, 'tuple': (1, 2, 3)}
-with open('files\\data.pkl', 'wb') as file:
+with open('../files/data.pkl', 'wb') as file:
     pickle.dump(data, file)
 ===============================================
 import  pickle
 
-with open('files\\data.pkl', 'rb') as file:
+with open('../files/data.pkl', 'rb') as file:
     print(pickle.load(file))
 
 ===============================================
 import csv
-with open('files\\data.csv', 'w', newline='', encoding='UTF-8') as file:
+with open('../files/data.csv', 'w', newline='', encoding='UTF-8') as file:
     writer = csv.writer(file)
     writer.writerow(['Name', 'Age'])
     writer.writerow(['Bob', '30'])
     writer.writerow(['ALice', '20'])
 ==============================================
 import csv
-with open('files\\data.csv', 'r', newline='', encoding='UTF-8') as file:
+with open('../files/data.csv', 'r', newline='', encoding='UTF-8') as file:
     reader = csv.reader(file)
     for row in reader:
         print(row)
@@ -37,7 +37,7 @@ with open('files\\data.csv', 'r', newline='', encoding='UTF-8') as file:
 #Variant #1
 import json
 
-DATABASE_FILE = 'files\\products.json'
+DATABASE_FILE = '../files/products.json'
 
 def load_data():
     try:
@@ -132,7 +132,7 @@ if __name__ == "__main__":
 """
 import csv
 
-with open('files\\titanic.csv', 'r', encoding='UTF-8', newline='') as file:
+with open('../files/titanic.csv', 'r', encoding='UTF-8', newline='') as file:
     reader = csv.reader(file)
     for row in reader:
         is_survive = row[1]
