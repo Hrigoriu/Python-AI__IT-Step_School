@@ -63,6 +63,32 @@
             "calculated_salary_uah": 98292.68292682926,
             "date_added": "2025-05-16 15:54:37",
             "history": []
+        },
+        {
+            "id": 3,
+            "employee_name": "Іван Ігорьович Бердник",
+            "month_year": "Березень 2025",
+            "level": "Junior",
+            "actual_hours": 155.0,
+            "tasks_completed_value": 67000.0,
+            "usd_rate": 41.84,
+            "eur_rate": 47.39,
+            "calculated_salary_uah": 76451.21951219512,
+            "date_added": "2025-05-25 13:12:37",
+            "history": []
+        },
+        {
+            "id": 4,
+            "employee_name": "Шуляк Андрій Максимович",
+            "month_year": "Квітень 2025",
+            "level": "Senior",
+            "actual_hours": 170.0,
+            "tasks_completed_value": 250000.0,
+            "usd_rate": 41.85,
+            "eur_rate": 47.41,
+            "calculated_salary_uah": 572560.9756097561,
+            "date_added": "2025-05-25 13:43:49",
+            "history": []
         }
     ]
 }

@@ -1,5 +1,5 @@
-import telebot
-from chat_manager import ChatManager
+import telebot  # Імпортуємо pyTelegramBotAPI
+from chat_manager_01 import ChatManager
 
 TOKEN ='7810385962:AAFPvJYYSaytY030_Bs_S4jv91HrAnXwsAc' # мій токен :)
 #name: «Анонімний чат»

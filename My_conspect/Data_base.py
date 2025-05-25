@@ -1715,8 +1715,532 @@ print(hasattr(example_object, 'b'))#True
 print(hasattr(example_object, 'a'))#True
 print(hasattr(ExampleClass, 'b'))#False
 print(hasattr(ExampleClass, 'a'))#True
+#=======================================================================
+class Classy:
+    def method(self):
+        print("method")
+obj = Classy()
+obj.method()
+#method
+#----------------------------------------------------------------
+class Classy:
+    def method(self, par):
+        print("method:", par)
+obj = Classy()
+obj.method(1)
+obj.method(2)
+obj.method(3)
+#method: 1
+#method: 2
+#method: 3
+#-------------------------------------------------
+class Classy:
+    varia = 2
+    def method(self):
+        print(self.varia, self.var)
+obj = Classy()
+obj.var = 3
+obj.method()
+#2 3
+#------------------------------------------------------
+class Classy:
+    def other(self):
+        print("other")
 
+    def method(self):
+        print("method")
+        self.other()
+obj = Classy()
+obj.method()
+#method
+#other
+#------------------------------------------------------------
+class Classy:
+    def __init__(self, value):
+        self.var = value
+obj_1 = Classy("object")
+print(obj_1.var)#object
+#--------------------------------------------------------------
+class Classy:
+    def __init__(self, value = None):
+        self.var = value
+obj_1 = Classy("object")
+obj_2 = Classy()
+print(obj_1.var)#object
+print(obj_2.var)#None
+#-----------------------------------------------------------
+class Classy:
+    def visible(self):
+        print("visible")
 
+    def __hidden(self):
+        print("hidden")
+obj = Classy()
+obj.visible()
+try:
+    obj.__hidden()
+except:
+    print("failed")
+obj._Classy__hidden()
+#visible
+#failed
+#hidden
+#------------------------------------------------------------------
+class Classy:
+    pass
+print(Classy.__name__)#Classy
+obj = Classy()
+print(type(obj).__name__)#Classy
+#---------------------------------------------------------------
+class Classy:
+    pass
+print(Classy.__module__)#__main__
+obj = Classy()
+print(obj.__module__)#__main__
+#----------------------------------------------------------------
+class SuperOne:
+    pass
 
+class SuperTwo:
+    pass
+
+class Sub(SuperOne, SuperTwo):
+    pass
+
+def printBases(cls):
+    print('( ', end='')
+    for x in cls.__bases__:
+        print(x.__name__, end=' ')
+    print(')')
+
+printBases(SuperOne)#( object )
+printBases(SuperTwo)#( object )
+printBases(Sub)#( SuperOne SuperTwo )
+#----------------------------------------------------
+class MyClass:
+    pass
+
+obj = MyClass()
+obj.a = 1
+obj.b = 2
+obj.i = 3
+obj.ireal = 3.5
+obj.integer = 4
+obj.z = 5
+
+def incIntsI(obj):
+    for name in obj.__dict__.keys():
+        if name.startswith('i'):
+            val = getattr(obj, name)
+            if isinstance(val, int):
+                setattr(obj, name, val + 1)
+print(obj.__dict__)
+incIntsI(obj)
+print(obj.__dict__)
+#{'a': 1, 'b': 2, 'i': 3, 'ireal': 3.5, 'integer': 4, 'z': 5}
+#{'a': 1, 'b': 2, 'i': 4, 'ireal': 3.5, 'integer': 5, 'z': 5}
+#----------------------------------------------------------------
+class Sample:
+    def __init__(self):
+        self.name = Sample.__name__
+
+    def myself(self):
+        print("My name is " + self.name + " living in a " + Sample.__module__)
+obj = Sample()
+obj.myself()
+#My name is Sample living in a __main__
+#====================================================================
+class Star:
+    def __init__(self, name, galaxy):
+        self.name = name
+        self.galaxy = galaxy
+
+sun = Star("Sun", "Milky Way")
+print(sun)#<__main__.Star object at 0x7fb67ee89a50>
+#---------------------------------------------------
+class Star:
+    def __init__(self, name, galaxy):
+        self.name = name
+        self.galaxy = galaxy
+
+    def __str__(self):  #повертає рядок
+        return self.name + ' in ' + self.galaxy
+sun = Star("Sun", "Milky Way")
+print(sun)#Sun in Milky Way
+#--------------------------------------------------------
+class Vehicle:
+    pass
+
+class LandVehicle(Vehicle):
+    pass
+
+class TrackedVehicle(LandVehicle):
+    pass
+
+for cls1 in [Vehicle, LandVehicle, TrackedVehicle]:
+    for cls2 in [Vehicle, LandVehicle, TrackedVehicle]:
+        print(issubclass(cls1, cls2), end="\t")
+    print()
+#True	False	False
+#True	True	False
+#True	True	True
+#--------------------------------------------------------------
+class Vehicle:
+    pass
+
+class LandVehicle(Vehicle):
+    pass
+
+class TrackedVehicle(LandVehicle):
+    pass
+
+my_vehicle = Vehicle()
+my_land_vehicle = LandVehicle()
+my_tracked_vehicle = TrackedVehicle()
+
+for obj in [my_vehicle, my_land_vehicle, my_tracked_vehicle]:
+    for cls in [Vehicle, LandVehicle, TrackedVehicle]:
+        print(isinstance(obj, cls), end="\t")
+    print()
+#True	False	False
+#True	True	False
+#True	True	True
+#---------------------------------------------------------------
+class SampleClass:
+    def __init__(self, val):
+        self.val = val
+
+object_1 = SampleClass(0)
+object_2 = SampleClass(2)
+object_3 = object_1
+object_3.val += 1
+
+print(object_1 is object_2)
+print(object_2 is object_3)
+print(object_3 is object_1)
+print(object_1.val, object_2.val, object_3.val)
+
+string_1 = "Mary had a little "
+string_2 = "Mary had a little lamb"
+string_1 += "lamb"
+
+print(string_1 == string_2, string_1 is string_2)
+#False
+#False
+#True
+#1 2 1
+#True False
+#-------------------------------------------------------
+class Super:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return "My name is " + self.name + "."
+
+class Sub(Super):
+    def __init__(self, name):
+        Super.__init__(self, name)
+
+obj = Sub("Andy")
+print(obj)#My name is Andy.
+#----------------------------------------------------------
+class Super:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return "My name is " + self.name + "."
+
+class Sub(Super):
+    def __init__(self, name):
+        super().__init__(name)
+
+obj = Sub("Andy")
+print(obj)#My name is Andy.
+#-----------------------------------------------------------
+class Super:
+    supVar = 1
+
+class Sub(Super):
+    subVar = 2
+
+obj = Sub()
+print(obj.subVar)#2
+print(obj.supVar)#1
+#------------------------------------------------------------
+class Super:
+    def __init__(self):
+        self.supVar = 11
+
+class Sub(Super):
+    def __init__(self):
+        super().__init__()
+        self.subVar = 12
+
+obj = Sub()
+print(obj.subVar)#12
+print(obj.supVar)#11
+#--------------------------------------
+class Level1:
+    variable_1 = 100
+
+    def __init__(self):
+        self.var_1 = 101
+
+    def fun_1(self):
+        return 102
+
+class Level2(Level1):
+    variable_2 = 200
+
+    def __init__(self):
+        super().__init__()
+        self.var_2 = 201
+
+    def fun_2(self):
+        return 202
+
+class Level3(Level2):
+    variable_3 = 300
+
+    def __init__(self):
+        super().__init__()
+        self.var_3 = 301
+
+    def fun_3(self):
+        return 302
+
+obj = Level3()
+print(obj.variable_1, obj.var_1, obj.fun_1())
+print(obj.variable_2, obj.var_2, obj.fun_2())
+print(obj.variable_3, obj.var_3, obj.fun_3())
+#100 101 102
+#200 201 202
+#300 301 302
+#-----------------------------------------------------------
+class SuperA:
+    var_a = 10
+
+    def fun_a(self):
+        return 11
+
+class SuperB:
+    var_b = 20
+
+    def fun_b(self):
+        return 21
+
+class Sub(SuperA, SuperB):
+    pass
+
+obj = Sub()
+print(obj.var_a, obj.fun_a())#10 11
+print(obj.var_b, obj.fun_b())#20 21
+#----------------------------------------------------
+class Level1:
+    var = 100
+    def fun(self):
+        return 101
+
+class Level2(Level1):
+    var = 200
+    def fun(self):
+        return 201
+
+class Level3(Level2):
+    pass
+
+obj = Level3()
+print(obj.var, obj.fun())#200 201
+#--------------------------------------------------------
+class Left:
+    var = "L"
+    var_left = "LL"
+
+    def fun(self):
+        return "Left"
+
+class Right:
+    var = "R"
+    var_right = "RR"
+
+    def fun(self):
+        return "Right"
+
+class Sub(Left, Right):
+    pass
+
+obj = Sub()
+print(obj.var, obj.var_left, obj.var_right, obj.fun())#L LL RR Left
+#-------------------------------------------------------------------
+class One:
+    def do_it(self):
+        print("do_it from One")
+
+    def doanything(self):
+        self.do_it()
+
+class Two(One):
+    def do_it(self):
+        print("do_it from Two")
+
+one = One()
+two = Two()
+one.doanything()#do_it from One
+two.doanything()#do_it from Two
+#-------------------------------------------------
+import time
+
+class Tracks:
+    def change_direction(self, left, on):
+        print("tracks: ", left, on)
+
+class Wheels:
+    def change_direction(self, left, on):
+        print("wheels: ", left, on)
+
+class Vehicle:
+    def __init__(self, controller):
+        self.controller = controller
+
+    def turn(self, left):
+        self.controller.change_direction(left, True)
+        time.sleep(0.25)
+        self.controller.change_direction(left, False)
+
+wheeled = Vehicle(Wheels())
+tracked = Vehicle(Tracks())
+
+wheeled.turn(True)
+tracked.turn(False)
+#wheels:  True True
+#wheels:  True False
+#tracks:  False True
+#tracks:  False False
+#------------------------------------------------------------
+                #Про успадовуваність: суперклас-->клас-->підклас
+class Top:
+    def m_top(self):
+        print("top")
+
+class Middle_Left(Top):
+    def m_middle(self):
+        print("middle_left")
+
+class Middle_Right(Top):
+    def m_middle(self):
+        print("middle_right")
+
+class Bottom(Middle_Left, Middle_Right):
+    def m_bottom(self):
+        print("bottom")
+
+object = Bottom()
+object.m_bottom()
+object.m_middle()
+object.m_top()
+#bottom
+#middle_left
+#top
+#------------------------------------------------
+"""
+1. Метод з іменем __str__() відповідає за перетворення вмісту об'єкта 
+в (більш-менш) читабельний рядок.
+2. Функція з іменем issubclass(Class_1, Class_2) здатна визначити, 
+чи є Class_1 підкласом Class_2. 
+3. Функція з іменем isinstance(Object, Class) перевіряє, 
+чи походить об'єкт з вказаного класу. 
+4. Оператор is перевіряє, 
+чи дві змінні посилаються на один і той самий об'єкт.
+5. Безпараметрична функція з іменем super() повертає посилання 
+на найближчий суперклас класу.
+6. Методи, а також змінні екземпляра та класу, визначені в суперкласі, 
+автоматично успадковуються їх підкласами.
+7. Для того, щоб знайти будь-яку властивість об'єкта/класу, 
+Python шукає її всередині:
+*сам об'єкт;
+*всі класи, що беруть участь у лінії успадкування об'єкту знизу вгору;
+*якщо на певному шляху успадкування є більше одного класу, Python сканує їх зліва направо;
+*якщо обидва з перерахованих вище не допомагають, виникає виняток AttributeError.
+8. Якщо будь-який з підкласів визначає метод/змінну класу/змінну-екземпляр 
+з таким же іменем, як існує в суперкласі, нове ім'я має пріоритет 
+над будь-яким з попередніх екземплярів імені.
+"""
+#===============================================================
+"""
+BaseException
+   +---Exception
+   |   +---TypeError
+   |   +---StopAsyncIteration
+   |   +---StopIteration
+   |   +---ImportError
+   |   |   +---ModuleNotFoundError
+   |   |   +---ZipImportError
+   |   +---OSError
+   |   |   +---ConnectionError
+   |   |   |   +---BrokenPipeError
+   |   |   |   +---ConnectionAbortedError
+   |   |   |   +---ConnectionRefusedError
+   |   |   |   +---ConnectionResetError
+   |   |   +---BlockingIOError
+   |   |   +---ChildProcessError
+   |   |   +---FileExistsError
+   |   |   +---FileNotFoundError
+   |   |   +---IsADirectoryError
+   |   |   +---NotADirectoryError
+   |   |   +---InterruptedError
+   |   |   +---PermissionError
+   |   |   +---ProcessLookupError
+   |   |   +---TimeoutError
+   |   |   +---UnsupportedOperation
+   |   |   +---ItimerError
+   |   +---EOFError
+   |   +---RuntimeError
+   |   |   +---RecursionError
+   |   |   +---NotImplementedError
+   |   |   +---_DeadlockError
+   |   +---NameError
+   |   |   +---UnboundLocalError
+   |   +---AttributeError
+   |   +---SyntaxError
+   |   |   +---IndentationError
+   |   |   |   +---TabError
+   |   +---LookupError
+   |   |   +---IndexError
+   |   |   +---KeyError
+   |   |   +---CodecRegistryError
+   |   +---ValueError
+   |   |   +---UnicodeError
+   |   |   |   +---UnicodeEncodeError
+   |   |   |   +---UnicodeDecodeError
+   |   |   |   +---UnicodeTranslateError
+   |   |   +---UnsupportedOperation
+   |   +---AssertionError
+   |   +---ArithmeticError
+   |   |   +---FloatingPointError
+   |   |   +---OverflowError
+   |   |   +---ZeroDivisionError
+   |   +---SystemError
+   |   |   +---CodecRegistryError
+   |   +---ReferenceError
+   |   +---MemoryError
+   |   +---BufferError
+   |   +---Warning
+   |   |   +---UserWarning
+   |   |   +---DeprecationWarning
+   |   |   +---PendingDeprecationWarning
+   |   |   +---SyntaxWarning
+   |   |   +---RuntimeWarning
+   |   |   +---FutureWarning
+   |   |   +---ImportWarning
+   |   |   +---UnicodeWarning
+   |   |   +---BytesWarning
+   |   |   +---ResourceWarning
+   |   +---Error
+   +---GeneratorExit
+   +---SystemExit
+   +---KeyboardInterrupt
+"""
 
 

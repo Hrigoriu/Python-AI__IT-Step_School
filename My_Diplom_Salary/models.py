@@ -1,57 +1,43 @@
 from datetime import datetime
-from constants import EMPLOYEE_LEVELS # Імпортуємо константи
-from utils import validate_month_format # Імпортуємо утиліту
+from constants import EMPLOYEE_LEVELS
+from utils import validate_month_format
 
 # --- Класи даних ---
 
 class SalarySettings:
-    """
-    Клас для зберігання глобальних налаштувань розрахунку зарплати.
-    """
+    """Клас для зберігання глобальних налаштувань розрахунку зарплати."""
     def __init__(self, base_amounts=None, coefficients=None, task_costs=None, standard_monthly_hours=164.0, default_rates=None):
-        # Базові ставки зарплати (фіксована частина) для кожного рівня
-        # Якщо не передано, встановлюємо значення за замовчуванням
         self.base_amounts = base_amounts if base_amounts is not None else {
             "Junior": 10000.0,
             "Middle": 20000.0,
             "Senior": 35000.0,
             "Team Lead": 50000.0
         }
-        # Коефіцієнти для кожного рівня (впливають як на базову, так і на додаткову частину)
         self.coefficients = coefficients if coefficients is not None else {
             "Junior": 1.0,
             "Middle": 1.5,
             "Senior": 2.0,
             "Team Lead": 2.5
         }
-        # Вартість різних типів завдань (приклад)
         self.task_costs = task_costs if task_costs is not None else {
             "Simple": 1000.0,
             "Medium": 2000.0,
             "Complex": 3000.0
         }
-        # Стандартна кількість робочих годин на місяць (для розрахунку вартості години з базової ставки)
-        self.standard_monthly_hours = standard_monthly_hours if standard_monthly_hours > 0 else 164.0 # Забезпечуємо float і > 0
-        # Курси валют за замовчуванням (на випадок, якщо немає жодного запису)
+        self.standard_monthly_hours = standard_monthly_hours if standard_monthly_hours > 0 else 164.0
         self.default_rates = default_rates if default_rates is not None else {
             "USD": 40.00,
             "EUR": 43.00
         }
 
-        # Перевірка, що для всіх допустимих рівнів є ставки та коефіцієнти
-        # Якщо відсутні, додаємо з дефолтними нульовими значеннями, але краще попередити
         for level in EMPLOYEE_LEVELS:
             if level not in self.base_amounts:
-                 #print(f"Попередження: Для рівня '{level}' не встановлено базову ставку. Використовується 0.")
                  self.base_amounts[level] = 0.0
             if level not in self.coefficients:
-                 #print(f"Попередження: Для рівня '{level}' не встановлено коефіцієнт. Використовується 1.0.")
                  self.coefficients[level] = 1.0
 
-        # Переконуємося, що стандартні години є float
         self.standard_monthly_hours = float(self.standard_monthly_hours)
 
-        # Переконуємося, що ставки та вартість завдань є float
         for level in self.base_amounts:
              self.base_amounts[level] = float(self.base_amounts[level])
         for level in self.coefficients:
@@ -74,9 +60,7 @@ class SalarySettings:
 
     @classmethod
     def from_dict(cls, data):
-        """Створює об'єкт зі словника, завантаженого з JSON."""
-        # Використовуємо .get() з дефолтними значеннями для сумісності зі старими форматами файлів
-        # Переконуємося, що числові значення конвертуються у float
+        """Створює об'єкт із словника, завантаженого з JSON."""
         base_amounts = {k: float(v) for k, v in data.get("base_amounts", {}).items()}
         coefficients = {k: float(v) for k, v in data.get("coefficients", {}).items()}
         task_costs = {k: float(v) for k, v in data.get("task_costs", {}).items()}
@@ -91,7 +75,6 @@ class SalarySettings:
             default_rates=default_rates
         )
 
-    # Методи оновлення тепер можуть повертати повідомлення про статус
     def update_base_amount(self, level, amount):
         """Оновлює базову ставку для певного рівня."""
         if level in EMPLOYEE_LEVELS:
@@ -128,7 +111,7 @@ class SalarySettings:
             cost = float(cost)
             if cost < 0:
                  return f"Помилка: Вартість завдання не може бути від'ємною ({cost})."
-            self.task_costs[task_type.strip()] = cost # Прибираємо пробіли на кінцях
+            self.task_costs[task_type.strip()] = cost
             return f"Вартість завдання '{task_type.strip()}' оновлена/додана: {cost:.2f} грн."
         except ValueError:
             return "Помилка: Введіть коректне числове значення для вартості завдання."
@@ -154,7 +137,6 @@ class SalarySettings:
         except ValueError:
             return "Помилка: Введіть коректне числове значення для годин."
 
-
     def update_default_rates(self, usd_rate, eur_rate):
         """Оновлює курси валют за замовчуванням."""
         try:
@@ -170,19 +152,21 @@ class SalarySettings:
 
 
 class MonthlySalaryRecord:
-    """
-    Клас для зберігання даних про зарплату конкретного працівника за конкретний місяць.
-    """
+    """Клас для зберігання даних про зарплату конкретного працівника за конкретний місяць."""
     def __init__(self, record_id, employee_name, month_year, level, actual_hours, tasks_completed_value, usd_rate, eur_rate, calculated_salary_uah=None, date_added=None, history=None):
         if not isinstance(record_id, int) or record_id <= 0:
              raise ValueError("ID запису має бути додатнім цілим числом.")
         if not employee_name or not isinstance(employee_name, str):
              raise ValueError("Ім'я працівника не може бути порожнім.")
 
-        # Перевіряємо формат місяця при створенні
-        is_valid, result = validate_month_format(month_year)
+        # ПОКРАЩЕННЯ: Прибираємо зайві пробіли та корегуємо регістр в конструкторі
+        employee_name = employee_name.strip().title() # Регістр як у назві (перша літера кожного слова)
+        level = str(level).strip().capitalize() # Регістр як у стандартних рівнях
+
+        # Перевіряємо формат місяця при створенні (валідація тут вже робить strip і capitalize)
+        is_valid, month_year_formatted = validate_month_format(month_year)
         if not is_valid:
-             raise ValueError(f"Невірний формат місяця: {month_year}. {result}")
+             raise ValueError(f"Невірний формат місяця: {month_year}. {month_year_formatted}")
 
         if level not in EMPLOYEE_LEVELS:
              raise ValueError(f"Невірний рівень працівника: '{level}'. Допустимі: {', '.join(EMPLOYEE_LEVELS)}.")
@@ -217,18 +201,15 @@ class MonthlySalaryRecord:
 
 
         self.id = record_id
-        self.employee_name = employee_name.strip() # Прибираємо пробіли на кінцях
-        self.month_year = result # Зберігаємо валідований та відформатований рядок місяця
+        self.employee_name = employee_name
+        self.month_year = month_year_formatted
         self.level = level
         self.actual_hours = actual_hours
         self.tasks_completed_value = tasks_completed_value
         self.usd_rate = usd_rate
         self.eur_rate = eur_rate
-        # calculated_salary_uah може бути None, якщо розрахунок буде пізніше
         self.calculated_salary_uah = float(calculated_salary_uah) if calculated_salary_uah is not None else None
-        # Дата додавання запису
         self.date_added = date_added if date_added is not None else datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        # Історія змін запису
         self.history = history if history is not None else []
 
     def to_dict(self):
@@ -250,24 +231,22 @@ class MonthlySalaryRecord:
     @classmethod
     def from_dict(cls, data):
         """Створює об'єкт зі словника, завантаженого з JSON."""
-        # Використовуємо .get() для безпечного доступу та конвертуємо числа у float
+        # ПОКРАЩЕННЯ: Застосовуємо strip/capitalize також при завантаженні зі словника
         record_id = data.get("id")
-        employee_name = data.get("employee_name", "Невідомий працівник")
-        month_year = data.get("month_year")
-        level = data.get("level", "Junior")
+        employee_name = str(data.get("employee_name", "Невідомий працівник")).strip().title() # застосуємо Title Case
+        month_year = data.get("month_year") # validate_month_format в конструкторі зробить strip/capitalize
+        level = str(data.get("level", "Junior")).strip().capitalize() # застосуємо Capitalize
         actual_hours = float(data.get("actual_hours", 0.0))
         tasks_completed_value = float(data.get("tasks_completed_value", 0.0))
-        usd_rate = float(data.get("usd_rate", 1.0)) # Дефолтний курс 1.0, якщо відсутній (краще б дефолт з settings)
-        eur_rate = float(data.get("eur_rate", 1.0)) # TODO: Можливо, брати дефолт з settings, якщо тут None?
+        usd_rate = float(data.get("usd_rate", 1.0))
+        eur_rate = float(data.get("eur_rate", 1.0))
 
-        # calculated_salary_uah може бути None у старих записах
         calculated_salary_uah_raw = data.get("calculated_salary_uah")
         calculated_salary_uah = float(calculated_salary_uah_raw) if calculated_salary_uah_raw is not None else None
 
         date_added = data.get("date_added")
-        history = data.get("history", []) # Забезпечуємо, що історія є списком
+        history = data.get("history", [])
 
-        # Повертаємо екземпляр, конструктор MonthlySalaryRecord виконає валідацію
         try:
              return cls(
                  record_id=record_id,
@@ -283,13 +262,8 @@ class MonthlySalaryRecord:
                  history=history
              )
         except ValueError as e:
-             # Якщо дані в JSON невалідна, це може статися.
-             # Логуємо або обробляємо як помилку завантаження.
-             print(f"Помилка при завантаженні запису з ID : {e}. Запис буде пропущено або матиме дефолтні значення.")
-             # Можна повернути None або створити "зіпсований" об'єкт з повідомленням про помилку
-             # Для простоти, повертаємо об'єкт з тими даними, що є, але логуємо помилку.
-             # Або краще - нехай менеджер обробляє помилки від from_dict і фільтрує недійсні записи.
-             raise e # Перекидаємо помилку, щоб менеджер міг її обробити під час завантаження
+             print(f"Помилка при завантаженні запису з ID {record_id}: {e}. Запис може бути некоректним.")
+             raise e
 
     def add_history_entry(self, changes):
         """Додає запис про зміни до історії."""

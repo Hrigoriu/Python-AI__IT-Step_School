@@ -1,5 +1,5 @@
 import telebot  # Імпортуємо pyTelegramBotAPI
-from guess_game import GuessGame  # Імпортуємо наш клас гри
+from guess_game_01 import GuessGame  # Імпортуємо наш клас гри
 
 TOKEN ='7620696692:AAGd8Uik3jjGGoTo42aBKeagsI47E1N4P6k' # мій токен :)
 #name: «Вгадай число»

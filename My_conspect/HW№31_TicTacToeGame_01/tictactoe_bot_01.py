@@ -1,6 +1,6 @@
-import telebot
+import telebot  # Імпортуємо pyTelegramBotAPI
 from telebot import types
-from tictactoe_game import TicTacToeGame  # Імпортуємо наш клас гри
+from tictactoe_game_01 import TicTacToeGame  # Імпортуємо наш клас гри
 
 TOKEN ='7052289932:AAFGphvPUSHdSMjZfqHTy3iE6ODWSzTjC8A' # мій токен :)
 #name: «Хрестики-Нулики»
