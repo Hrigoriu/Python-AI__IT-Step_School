@@ -2242,5 +2242,668 @@ BaseException
    +---SystemExit
    +---KeyboardInterrupt
 """
+#=============================================================
+            #Ітератор#
+"""            
+__iter__() викликається один раз при створенні ітератора 
+            і повертає сам об'єкт ітератора;
+__next__() викликається для надання значення наступної ітерації 
+    та викликає виняток StopIteration, коли ітерація добігає кінця.
+"""
+#-----------------------------------------------------
+       #Генератори дуже часто називають ітераторами
+for i in range(5):
+print(i)
+#---------------------------------------------------
+def fun(n):
+    for i in range(n):
+        yield i
+for v in fun(5):
+    print(v)
+"""
+0
+1
+2
+3
+4
+"""
+#-------------------------------------------------------
+def powers_of_2(n):
+    power = 1
+    for i in range(n):
+        yield power
+        power *= 2
+for v in powers_of_2(8):
+    print(v)
+#-------------------------------------------------------------
+def powers_of_2(n):
+    power = 1
+    for i in range(n):
+        yield power
+        power *= 2
+t = list(powers_of_2(3))
+print(t)#[1, 2, 4]
+#----------------------------------------------------
+list_1 = []
+for ex in range(6):
+    list_1.append(10 ** ex)
+list_2 = [10 ** ex for ex in range(6)]
+print(list_1)#[1, 10, 100, 1000, 10000, 100000]
+print(list_2)#[1, 10, 100, 1000, 10000, 100000]
+#----------------------------------------------------
+the_list = []
+for x in range(10):
+    the_list.append(1 if x % 2 == 0 else 0)
+print(the_list)#[1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+#----------------------------------------------------
+the_list = [1 if x % 2 == 0 else 0 for x in range(10)]
+print(the_list)#[1, 0, 1, 0, 1, 0, 1, 0, 1, 0]
+#-----------------------------------------------
+the_list = [1 if x % 2 == 0 else 0 for x in range(10)]
+the_generator = (1 if x % 2 == 0 else 0 for x in range(10))
+for v in the_list:
+    print(v, end=" ")
+print()#1 0 1 0 1 0 1 0 1 0
+
+for v in the_generator:
+    print(v, end=" ")
+print()#1 0 1 0 1 0 1 0 1 0
+#---------------------------------------------------
+        #Лямбда-функція – це функція без назви
+        # (її також можна назвати анонімною функцією)
+"""
+Лямбда-функція – це інструмент для створення анонімних функцій.
+Ви можете назвати таку функцію, якщо вам дійсно потрібно, 
+але, насправді, в багатьох випадках лямбда-функція 
+може існувати і працювати, залишаючись при цьому повністю інкогніто.
+"""
+two = lambda: 2
+sqr = lambda x: x * x
+pwr = lambda x, y: x ** y
+for a in range(-2, 3):
+    print(sqr(a), end=" ")
+    print(pwr(a, two()))
+"""
+4 4
+1 1
+0 0
+1 1
+4 4
+"""
+#--------------------------------------------------------
+def print_function(args, fun):
+    for x in args:
+        print('f(', x, ')=', fun(x), sep='')
+print_function([x for x in range(-2, 3)], lambda x: 2 * x ** 2 - 4 * x + 2)
+"""
+f(-2)=18
+f(-1)=8
+f(0)=2
+f(1)=0
+f(2)=2
+"""
+#--------------------------------------------------------
+map(function, list)
+"""
+Функція map(fun, list) створює копію аргументу list і застосовує функцію fun
+до всіх його елементів, повертаючи генератор, який надає новий елемент вмісту списку.
+"""
+#--------------------------------------
+short_list = ['mython', 'python', 'fell', 'on', 'the', 'floor']
+new_list = list(map(lambda s: s.title(), short_list))
+print(new_list)#['Mython', 'Python', 'Fall', 'On', 'The', 'Floor']
+#--------------------------------------
+list_1 = [x for x in range(5)]
+list_2 = list(map(lambda x: 2 ** x, list_1))
+print(list_2)
+for x in map(lambda x: x * x, list_2):
+    print(x, end=' ')
+print()
+#[1, 2, 4, 8, 16]
+#1 4 16 64 256
+#-------------------------------------
+        #filter (fun, list)
+"""
+Функція filter (fun, list) створює копію тих елементів списку, 
+які змушують функцію fun повертати True. Результатом функції є генератор, 
+який елемент за елементом надає новий контент списку.
+"""
+short_list = [1, "Python", -1, "Monty"]
+new_list = list(filter(lambda s: isinstance(s, str), short_list))
+print(new_list)#['Python', 'Monty']
+#-------------------------------------
+from random import seed, randint
+seed()
+data = [randint(-10,10) for x in range(5)]
+filtered = list(filter(lambda x: x > 0 and x % 2 == 0, data))
+print(data)#[8, 3, 5, -2, -6]
+print(filtered)#[8]
+#----------------------------------------
+def outer(par):
+    loc = par
+    def inner():
+        return loc
+    return inner
+var = 1
+fun = outer(var)
+print(fun())#1
+#-----------------------------------------
+            #Замикання# A closure
+"""
+Замикання - це техніка, яка дозволяє зберігати значення, 
+незважаючи на те, що контексту, в якому вони були створені, більше не існує. 
+"""
+def tag(tg):
+    tg2 = tg
+    tg2 = tg[0] + '/' + tg[1:]
+    def inner(str):
+        return tg + str + tg2
+    return inner
+b_tag = tag('<b>')
+print(b_tag('Monty Python'))#<b>Monty Python</b>
+#--------------------------------------------------------
+def make_closure(par):
+    loc = par
+    def power(p):
+        return p ** loc
+    return power
+fsqr = make_closure(2)
+fcub = make_closure(3)
+for i in range(5):
+    print(i, fsqr(i), fcub(i))
+"""
+0 0 0
+1 1 1
+2 4 8
+3 9 27
+4 16 64
+"""
+#===============================================================
+        ##Доступ до файлів#
+"""
+#Windows
+C:\directory\file
+name = "\\dir\\file"
+name = "/dir/file"
+name = "c:/dir/file"
+#Linux
+/directory/files
+name = "/dir/file"
+"""
+"""
+На потоці виконуються дві основні операції:
+
+*read зчитування з потоку: частини даних витягуються з файлу 
+і поміщаються в область пам'яті, керовану програмою (наприклад, змінну);
+*write запис у потік: у файл передаються частини даних з пам'яті (наприклад, змінна).
+
+Для відкриття потоку використовуються три основні режими:
+*read mode: Режим читання: потік, відкритий у цьому режимі, 
+    дозволяє лише операції зчитування; спроба запису в потік викличе виняток 
+    (виняток називається UnsupportedOperation, 
+    який успадковує OSError і ValueError, і походить з модуля io);
+write mode: Режим запису: потік, відкритий у цьому режимі, 
+    дозволяє лише операції запису; спроба прочитати потік викличе виняток, 
+    згаданий вище;
+update mode:Режим оновлення: Відкритий у цьому режимі 
+    потік дозволяє як записувати, так і читати.
+"""
+open(file_name, mode=open_mode, encoding=text_encoding)
+stream = open(file, mode = 'r', encoding = None)
+"""
+*назва функції (open) говорить сама за себе; 
+якщо відкриття пройшло успішно, функція повертає об'єкт потоку; 
+в іншому випадку виникає виняток 
+(наприклад, FileNotFoundError, якщо файл, який ви збираєтеся читати, не існує);
+*перший параметр функції (file) вказує ім'я файлу, який буде пов'язаний з потоком;
+*другий параметр (mode) визначає режим відкритості, який використовується для потоку; це рядок, заповнений послідовністю символів, і кожен з них має своє особливе значення (докладніше пізніше);
+*третій параметр (кодування) визначає тип кодування 
+(наприклад, UTF-8 при роботі з текстовими файлами)
+"""
+#r  Відкритий режим: читання (read)
+#w  Відкритий режим: запис (write)
+#a  Відкритий режим: додати (append)
+#r+ Відкритий режим: читання та оновлення (read and update)
+#w+ Відкритий режим: запис і оновлення (write and update)
+"""
+Якщо рядок режиму закінчується на букву b, 
+це означає, що потік повинен бути відкритий в двійковому режимі.
+Якщо рядок режиму закінчується на букву t, 
+це означає, що потік відкривається в текстовому режимі.
+"""
+#------------------------------------------------------
+try:
+    stream = open("C:\Users\User\Desktopile.txt", "rt")
+    # Processing goes here.
+    stream.close()
+except Exception as exc:
+    print("Cannot open the file:", exc)
+#-----------------------------------------------------------
+import sys
+    #Потоки
+    #*sys.stdin зазвичай пов'язаний з клавіатурою
+#Відома функція input() за замовчуванням зчитує дані зі Stdin
+    #*sys.stdout зазвичай пов'язаний з екраном
+#Відома функція print() виводить дані в потік stdout.
+    #*sys.stderr зазвичай пов'язаний з екраном
+#як стандартний вивід помилок
+    #*stream.close() закриття потоку
+"""    
+errno.EACCES →  Permission denied
+errno.EBADF →   Bad file number
+errno.EEXIST →  File exists
+errno.EFBIG →   File too large
+errno.EISDIR →  Is a directory
+errno.EMFILE →  Too many open files
+errno.ENOENT →  No such file or directory
+errno.ENOSPC →  No space left on device
+"""
+import errno
+try:
+    s = open("c:/users/user/Desktop/file.txt", "rt")
+    # Actual processing goes here.
+    s.close()
+except Exception as exc:
+    if exc.errno == errno.ENOENT:
+        print("The file doesn't exist.")
+    elif exc.errno == errno.EMFILE:
+        print("You've opened too many files.")
+    else:
+        print("The error number is:", exc.errno)
+#The file doesn't exist.
+#--------------------------------------------------------
+from os import strerror
+try:
+    s = open("c:/users/user/Desktop/file.txt", "rt")
+    # Actual processing goes here.
+    s.close()
+except Exception as exc:
+    print("The file could not be opened:", strerror(exc.errno))
+#The file could not be opened: No such file or directory
+#=============================================================
+from os import strerror
+try:
+    counter = 0
+    stream = open('text.txt', "rt")
+    char = stream.read(1)
+    while char != '':
+        print(char, end='')
+        counter += 1
+        char = stream.read(1)
+    stream.close()
+    print("\n\nCharacters in file:", counter)
+except IOError as e:
+    print("I/O error occurred: ", strerror(e.errno))
+#----------------------------------------------------------
+from os import strerror
+try:
+    counter = 0
+    stream = open('text.txt', "rt")
+    content = stream.read()
+    for char in content:
+        print(char, end='')
+        counter += 1
+    stream.close()
+    print("\n\nCharacters in file:", counter)
+except IOError as e:
+    print("I/O error occurred: ", strerr(e.errno))
+#-----------------------------------------------------------
+        #readline() прочитати повний рядок тексту з файлу
+from os import strerror
+try:
+    character_counter = line_counter = 0
+    stream = open('text.txt', 'rt')
+    line = stream.readline()
+    while line != '':
+        line_counter += 1
+        for char in line:
+            print(char, end='')
+            character_counter += 1
+        line = stream.readline()
+    stream.close()
+    print("\n\nCharacters in file:", character_counter)
+    print("Lines in file:     ", line_counter)
+except IOError as e:
+    print("I/O error occurred:", strerror(e.errno))
+#--------------------------------------------------------
+        #readlines() прочитати весь вміст файлу та
+            # повертає список рядків, по одному елементу на рядок файлу
+from os import strerror
+try:
+    ccnt = lcnt = 0
+    s = open('text.txt', 'rt')
+    lines = s.readlines(20)
+    while len(lines) != 0:
+        for line in lines:
+            lcnt += 1
+            for ch in line:
+                print(ch, end='')
+                ccnt += 1
+        lines = s.readlines(10)
+    s.close()
+    print("\n\nCharacters in file:", ccnt)
+    print("Lines in file:     ", lcnt)
+except IOError as e:
+    print("I/O error occurred:", strerror(e.errno))
+#-------------------------------------------------------------------
+from os import strerror
+try:
+    ccnt = lcnt = 0
+    for line in open('text.txt', 'rt'):
+        lcnt += 1
+        for ch in line:
+            print(ch, end='')
+            ccnt += 1
+    print("\n\nCharacters in file:", ccnt)
+    print("Lines in file:     ", lcnt)
+except IOError as e:
+    print("I/O error occurred: ", strerror(e.errno))
+#----------------------------------------------------------------
+        #write() очікує лише один аргумент – рядок, який буде передано у відкритий файл
+from os import strerror
+try:
+    file = open('newtext.txt', 'wt')
+    for i in range(10):
+        file.write("line #" + str(i+1) + "\n")
+    file.close()
+except IOError as e:
+    print("I/O error occurred: ", strerror(e.errno))
+#--------------------------------------------------------
+        #bytearray() це масив, що містить (аморфні) байти
+data = bytearray(10)
+for i in range(len(data)):
+    data[i] = 10 - i
+for b in data:
+    print(hex(b))
+"""
+0xa
+0x9
+0x8
+0x7
+0x6
+0x5
+0x4
+0x3
+0x2
+0x1
+"""
+        #readinto()
+#метод повертає кількість успішно прочитаних байтів
+#метод намагається заповнити весь доступний простір всередині його аргументу
+from os import strerror
+data = bytearray(10)
+try:
+    binary_file = open('file.bin', 'rb')
+    binary_file.readinto(data)
+    binary_file.close()
+
+    for b in data:
+        print(hex(b), end=' ')
+except IOError as e:
+    print("I/O error occurred:", strerror(e.errno))
+#------------------------------------------------------------------
+"""
+1. Для зчитування вмісту файлу можна використовувати такі методи потоку
+read(number) –      зчитує числові символи/байти з файлу та повертає їх у вигляді рядка; вміє читати весь файл відразу;
+readline() –        читає один рядок з текстового файлу;
+readlines(number) – зчитує числові рядки з текстового файлу; вміє читати всі рядки відразу;
+readinto(bytearray) – зчитує байти з файлу та заповнює ними масив байтів;
+2. Для запису нового контенту у файл можна використовувати такі методи потоку:
+write(string) –     записує рядок у текстовий файл;
+write(bytearray) –  записує всі байти bytearray у файл
+3. Метод open() повертає ітерабельний об'єкт, 
+який можна використовувати для перебору всіх рядків файлу всередині циклу for. 
+"""
+#============================================================
+    # Модуль os - дозволяє взаємодіяти з операційною системою
+"""
+uname - повертає об'єкт, який містить інформацію про поточну операційну систему
+systemname — зберігає ім'я операційної системи;
+nodename — зберігає ім'я машини у мережі;
+release — зберігає реліз операційної системи;
+version — зберігає версію операційної системи;
+machine — зберігає ідентифікатор обладнання, наприклад, x86_64.
+name - дозволяє розрізняти операційну систему:
+    posix (ви отримаєте це ім'я, якщо використовуєте Unix)
+    nt (ви отримаєте це ім'я, якщо використовуєте Windows)
+    java (ви отримаєте це ім'я, якщо ваш код написаний на чомусь на кшталт Jython)
+"""
+"""
+mkdir - функція, яка дозволяє створити директорію
+chmod - змінює права доступу до каталогу
+listdir - повертає список, що містить імена файлів і каталогів, 
+        які знаходяться в шляху, переданому як аргумент
+getcwd - показує в якій ти директорії
+rmdir - функція, яка дозволяє видалити окремий каталог
+removedirs - функція, яка дозволяє видалити каталог та його підкаталоги
+my_first_directory — це відносний шлях, який створить 
+    директорію my_first_directory у поточній робочій директорії;
+./my_first_directory — це відносний шлях, який явно вказує 
+    на поточну робочу директорію. Він має той самий ефект, що й наведений вище шлях;
+.. /my_first_directory — це відносний шлях, який створить 
+    my_first_directory директорію у батьківському каталозі поточної робочої директорії;
+/python/my_first_directory — це абсолютний шлях, який створить 
+    директорію my_first_directory, яка в свою чергу знаходиться 
+    в директорії python в кореневій директорії.
+"""
+import os
+os.makedirs("my_first_directory/my_second_directory")
+os.chdir("my_first_directory")
+print(os.listdir())
+#--------------------------------------------------------
+import os
+os.makedirs("my_first_directory/my_second_directory")
+os.chdir("my_first_directory")
+print(os.getcwd())
+os.chdir("my_second_directory")
+print(os.getcwd())
+#---------------------------------------------------
+import os
+os.mkdir("my_first_directory")
+print(os.listdir())
+os.rmdir("my_first_directory")
+print(os.listdir())
+#-------------------------------------------------
+import os
+os.makedirs("my_first_directory/my_second_directory")
+os.removedirs("my_first_directory/my_second_directory")
+print(os.listdir())
+#-------------------------------------------------
+import os
+returned_value = os.system("mkdir my_first_directory")
+print(returned_value)
+#===================================================================
+        # datetime -робота з датою і часом
+#Клас date - дата, що складається з року, місяця і дня
+from datetime import date
+
+today = date.today()
+print("Today:", today)      #Today: 2025-05-31
+print("Year:", today.year)  #Year: 2025
+print("Month:", today.month)#Month: 5
+print("Day:", today.day)    #Day: 31
+#-----------------------------------------------
+"""
+В Unix часова позначка виражає кількість секунд 
+з 00:00:00 (UTC) з 1 січня 1970 року. 
+Цю дату називають епохою Unix, тому що саме тоді 
+почався відлік часу в системах Unix.
+"""
+#------------------------------------------------
+""" 
+time() - функція, пов'язана з часом
+fromtimestamp() - часова позначка Unix
+    # - яка повертає кількість секунд
+    # з 1 січня 1970 року до поточного моменту
+    # у вигляді числа з плаваючою комою
+fromisoformat() - бере дату в форматі РРРР-ММ-ДД,
+                # що відповідає стандарту ISO 8601
+replace() - якщо потрібно замінити рік, місяць або день на інше значення
+weekday() - повертає день тижня у вигляді цілого числа, 
+          де 0 — понеділок, а 6 — неділя
+isoweekday - повертає день тижня як ціле число, 
+          але 1 — це понеділок, а 7 — неділя     
+time(hour, minute, second, microsecond, tzinfo, fold)
+представляє час          
+ctime() - перетворює час у секундах з 1 січня 1970 року (епоха Unix) у рядок     
+datetime() - дата і час можуть бути представлені як окремі об'єкти, 
+            так і як один об'єкт          
+datetime(year, month, day, hour, minute, second, microsecond, tzinfo, fold)          
+today() — повертає поточну локальну дату та час з атрибутом tzinfo, 
+            встановленим у значення None.;
+now() — повертає поточну локальну дату та час так само, як і метод today, 
+        якщо ми не передаємо йому необов'язковий аргумент tz. 
+        Аргументом цього методу повинен бути об'єкт підкласу tzinfo;
+utcnow() — повертає поточну дату та час UTC зі встановленим атрибутом 
+        tzinfo у значення None.          
+timestamp() - часова позначка          
+         повертає число з плаваючою точкою, що виражає кількість секунд, 
+         що минули між датою та часом, вказаними об'єктом datetime, 
+         і 1 січня 1970 року, 00:00:00 (UTC)      
+strftime() - дозволяє нам повернути дату і час у вказаному нами форматі        
+timedelta() - це метод для віднімання об'єктів date або datetime 
+sleep() - призупиняє виконання команди print на задану кількість секунд                   
+"""
+#--------------------------------------------
+from datetime import date
+import time
+
+timestamp = time.time()
+print("Timestamp:", timestamp)      #Timestamp: 1748682665.7633297
+d = date.fromtimestamp(timestamp)
+print("Date:", d)                   #Date: 2025-05-31
+#-------------------------------------------------
+from datetime import date
+
+d = date(1991, 2, 5)
+print(d)    #1991-02-05
+d = d.replace(year=1992, month=1, day=16)
+print(d)    #1992-01-16
+#------------------------------------------------
+from datetime import date
+
+d = date(2019, 11, 4)
+print(d.weekday())#0
+#------------------------------------------------
+from datetime import date
+
+d = date(2019, 11, 4)
+print(d.isoweekday())#1
+#------------------------------------------------
+from datetime import time
+
+t = time(14, 53, 20, 1)
+print("Time:", t)                   #Time: 14:53:20.000001
+print("Hour:", t.hour)              #Hour: 14
+print("Minute:", t.minute)          #Minute: 53
+print("Second:", t.second)          #Second: 20
+print("Microsecond:", t.microsecond)#Microsecond: 1
+#------------------------------------------------
+import time
+
+class Student:
+    def take_nap(self, seconds):
+        print("I'm very tired. I have to take a nap. See you later.")
+        time.sleep(seconds)
+        print("I slept well! I feel great!")
+student = Student()
+student.take_nap(5)
+"""
+I'm very tired. I have to take a nap. See you later.
+5 сек затримка
+I slept well! I feel great!
+"""
+#------------------------------------------------
+from datetime import datetime
+
+print("today:", datetime.today())   #today:  2025-05-31 12:10:55.801230
+print("now:", datetime.now())       #now:    2025-05-31 12:10:55.803666
+print("utcnow:", datetime.utcnow()) #utcnow: 2025-05-31 12:10:55.804528
+#---------------------------------------------
+from datetime import datetime
+
+dt = datetime(2020, 10, 4, 14, 55)
+print("Timestamp:", dt.timestamp())  ##Timestamp: 1601823300.0
+#----------------------------------------------------------------
+from datetime import date
+
+d = date(2020, 1, 4)
+print(d.strftime('%Y/%m/%d'))   #2020/01/04
+#-----------------------------------------------------------------
+from datetime import time
+from datetime import datetime
+
+t = time(14, 53)
+print(t.strftime("%H:%M:%S"))   #14:53:00
+
+dt = datetime(2020, 11, 4, 14, 53)
+print(dt.strftime("%y/%B/%d %H:%M:%S")) #20/November/04 14:53:00
+#-------------------------------------------------------------------
+from datetime import date
+from datetime import datetime
+d1 = date(2020, 11, 4)
+d2 = date(2019, 11, 4)
+print(d1 - d2)  #366 days, 0:00:00
+
+dt1 = datetime(2020, 11, 4, 0, 0, 0)
+dt2 = datetime(2019, 11, 4, 14, 53, 0)
+print(dt1 - dt2)    #365 days, 9:07:00
+#---------------------------------------------------------------
+from datetime import timedelta
+
+delta = timedelta(weeks=2, days=2, hours=3)
+print(delta)    #16 days, 3:00:00
+#--------------------------------------------------
+from datetime import timedelta
+
+delta = timedelta(weeks=2, days=2, hours=3)
+print("Days:", delta.days)                  #Days: 16
+print("Seconds:", delta.seconds)            #Seconds: 10800
+print("Microseconds:", delta.microseconds)  #Microseconds: 0
+#----------------------------------------------
+from datetime import timedelta
+from datetime import date
+from datetime import datetime
+
+delta = timedelta(weeks=2, days=2, hours=2)
+print(delta)    #16 days, 2:00:00
+
+delta2 = delta * 2
+print(delta2)   #32 days, 4:00:00
+
+d = date(2019, 10, 4) + delta2
+print(d)    #2019-11-05
+
+dt = datetime(2019, 10, 4, 14, 53) + delta2
+print(dt)   #2019-11-05 18:53:00
+#----------------------------------------------
+from datetime import datetime
+
+my_date = datetime(2020, 11, 4, 14, 53)
+print(my_date.strftime("%Y/%m/%d %H:%M:%S"))    #2020/11/04 14:53:00
+print(my_date.strftime("%y/%B/%d %H:%M:%S %p")) #20/November/04 14:53:00 PM
+print(my_date.strftime("%a, %Y %b %d"))         #Wed, 2020 Nov 04
+print(my_date.strftime("%A, %Y %B %d"))         #Wednesday, 2020 November 04
+print(my_date.strftime("Weekday: %w"))          #Weekday: 3
+print(my_date.strftime("Day of the year: %j"))  #Day of the year: 309
+print(my_date.strftime("Week number of the year: %W"))#Week number of the year: 44
+#-------------------------------------------------------------------------------
+import time
+
+time.sleep(10)
+print("Hello world!") # This text will be displayed after 10 seconds.
+#------------------------------------------------------------------------
+from datetime import datetime
+
+dt = datetime(2020, 9, 29, 13, 51)
+print("Datetime:", dt)  # Datetime: 2020-09-29 13:51:00
+#------------------------------------------------------------------------
+from datetime import date
+
+d = date(2020, 9, 29)
+print(d.strftime('%Y/%m/%d')) #2020/09/29
+#------------------------------------------------------------------------
+
+#------------------------------------------------------------------------
 
 

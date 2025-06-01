@@ -1,10 +1,21 @@
-#TOKEN ='7917068514:AAF7-QdQQNg55_raHMDZN0_yI8ZNxkEfd-M'
-# ваш токен сюди :) 7791357414:AAFnWP0c3lHIdjloUq8GD0ILL-EcXKOUAV4
-#bot = tb.TeleBot(TOKEN)
-#admin_id = 523793990
+import time
+
+time.sleep(10)
+print("Hello world!") # This text will be displayed after 10 seconds.
+
+class Singleton:
+    _instance = None
+
+    def __new__(cls):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
 
 
-TOKEN = '7917068514:AAF7-QdQQNg55_raHMDZN0_yI8ZNxkEfd-M'
-ADMIN_ID = 523793990 # Залишене як приклад, якщо ID адміна потрібен для інших ціле
-#name: Salary
-#name_bot: Salary_AI_bot
+        return cls._instance
+
+
+
+singleton_1 = Singleton()
+singleton_2 = Singleton()
+print(id(singleton_1))
+print(id(singleton_2))
