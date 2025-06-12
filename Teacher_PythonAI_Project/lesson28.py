@@ -5,6 +5,7 @@ print(type([1, 2, 3]))
 print(type(str))
 print(type(list))
 
+
 def method_b(self):
     return self.b
 
