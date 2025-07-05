@@ -76,7 +76,7 @@ def main():
             else:
                 initial_len = len(data_list)
                 data_list = [x for x in data_list if x != num_to_remove]
-                # Альтернативний спосіб, якщо потрібно модифікувати існуючий список
+                # Альтернативний спосіб
                 # while num_to_remove in data_list:
                 #     data_list.remove(num_to_remove)
                 if len(data_list) < initial_len:
