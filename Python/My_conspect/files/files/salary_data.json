@@ -1,0 +1,27 @@
+{
+    "settings": {
+        "base_amounts": {
+            "Junior": 10000,
+            "Middle": 20000,
+            "Senior": 35000,
+            "Team Lead": 50000
+        },
+        "coefficients": {
+            "Junior": 1.0,
+            "Middle": 1.5,
+            "Senior": 2.0,
+            "Team Lead": 2.5
+        },
+        "task_costs": {
+            "Simple": 100,
+            "Medium": 250,
+            "Complex": 500
+        },
+        "standard_monthly_hours": 164,
+        "default_rates": {
+            "USD": 41.84,
+            "EUR": 47.17
+        }
+    },
+    "monthly_records": []
+}
