@@ -4,7 +4,7 @@ Win+R --> Пишемо: cmd --> Переходимо в командний ря�
 з C:\Users\User> 
 до D:\IT school\Projects\Projects_IT_School\Jupyter-AI_IT_School
 
-cd /d "D:\IT school\Projects\Projects_IT_School\Jupyter-AI_IT_School"
+cd /d "D:\IT school\Projects\Projects_IT_School\Python-AI__IT-Step_School"
 
 Лапки потрібні, бо в назві є пробіли (IT school).
 Тут ключ /d каже команді cd, що потрібно ще й змінити диск (з C: на D:).
@@ -17,7 +17,7 @@ cd /d "D:\IT school\Projects\Projects_IT_School\Jupyter-AI_IT_School"
 
 Потім для зручності:
 	Win+R --> Пишемо: cmd
-	cd /d "D:\IT school\Projects\Projects_IT_School\Jupyter-AI_IT_School"
+	cd /d "D:\IT school\Projects\Projects_IT_School\Python-AI__IT-Step_School"
 	jupyter notebook
 
 !!! Не закриваємо термінал, бо він має бути активним, через нього працює локальний сервер.
