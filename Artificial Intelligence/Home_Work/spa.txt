@@ -1,0 +1,11 @@
+
+hello	hola
+thank you	gracias
+good morning	buenos dias
+goodbye	adios
+how are you?	como estas?
+I love you	te amo
+yes	si
+no	no
+please	por favor
+sorry	lo siento
