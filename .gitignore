@@ -36,10 +36,11 @@ dist/
 *.zip
 *.tar
 *.tar.gz
+*.joblib
 
 
 
 
 
 
-
+Artificial Intelligence/Class_Work/final_regression_model.joblib
