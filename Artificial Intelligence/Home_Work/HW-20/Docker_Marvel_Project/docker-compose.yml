@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  # 1. "Чарівна пошта" (RabbitMQ)
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  # 2. "Агент-Всезнайко"
+  agent_info:
+    build: ./agent_info
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - RABBIT_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
+
+  # 3. "Агент-Кіноман"
+  agent_movies:
+    build: ./agent_movies
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - RABBIT_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
+
+  # 4. "Агент-Запитайко" (Контролер)
+  controller:
+    build: ./controller
+    environment:
+      - RABBIT_HOST=rabbitmq
+    depends_on:
+      - rabbitmq
+    stdin_open: true
+    tty: true
